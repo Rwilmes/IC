@@ -1,10 +1,14 @@
 package ic.comparator;
 
+import java.util.ArrayList;
+
 import ic.image.Image;
+import ic.metrics.ImageComparisonMetric;
 
 /**
  * The abstract ImageComparator class defines all the methods an image
- * comparator has to supply.
+ * comparator has to supply. An ImageComparator uses multiple
+ * ImageComparisonMetrics in order to determine how similar to images are.
  * 
  * @author Rwilmes
  * 
@@ -12,19 +16,19 @@ import ic.image.Image;
 public abstract class ImageComparator {
 
 	private String name;
-	private double weight;
+	private ArrayList<ImageComparisonMetric> metrics;
 
-	public ImageComparator(String name, double weight) {
+	public ImageComparator(String name, ArrayList<ImageComparisonMetric> metrics) {
 		this.name = name;
-		this.weight = weight;
+		this.metrics = metrics;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public double getWeight() {
-		return weight;
+	public ArrayList<ImageComparisonMetric> getMetrics() {
+		return metrics;
 	}
 
 	/**
