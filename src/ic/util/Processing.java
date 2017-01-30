@@ -19,7 +19,7 @@ public class Processing {
 	/** Resizes (stretches) an image to the given size. **/
 	public static BufferedImage resize(BufferedImage i, int width, int height) {
 		// start timer
-		Timer timer = new Timer(TimerType.TIMER_PROCESSING);
+		Timer timer = new Timer(TimerType.TIMER_PROCESSING_RESIZE);
 
 		// resize
 		BufferedImage i2 = new BufferedImage(width, height, i.getType());
@@ -49,7 +49,7 @@ public class Processing {
 	/** Converts the image into grayscale. **/
 	public static BufferedImage grayScale(BufferedImage i) {
 		// start timer
-		Timer timer = new Timer(TimerType.TIMER_PROCESSING);
+		Timer timer = new Timer(TimerType.TIMER_PROCESSING_COLORING);
 
 		// convert into gray image
 		BufferedImage image = new BufferedImage(i.getWidth(), i.getHeight(),
@@ -73,7 +73,7 @@ public class Processing {
 	 **/
 	public static BufferedImage rotate(BufferedImage i, double angle) {
 		// start timer
-		Timer timer = new Timer(TimerType.TIMER_PROCESSING);
+		Timer timer = new Timer(TimerType.TIMER_PROCESSING_ROTATE);
 
 		// create affine transformation
 		AffineTransform transform = new AffineTransform();

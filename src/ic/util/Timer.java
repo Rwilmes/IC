@@ -12,7 +12,7 @@ import ic.util.runtime.Runtimes;
 public class Timer {
 
 	public enum TimerType {
-		TIMER_PROCESSING, TIMER_IO
+		TIMER_PROCESSING_RESIZE, TIMER_PROCESSING_ROTATE, TIMER_PROCESSING_COLORING, TIMER_IO_READ, TIMER_IO_WRITE
 	}
 
 	private long start;

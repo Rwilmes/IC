@@ -13,20 +13,19 @@ public class Runtime {
 
 	private String name;
 	private long runtime;
+	private long operations;
 
 	public Runtime(String name) {
-		this(name, 0);
-	}
-
-	public Runtime(String name, long runtime) {
 		this.name = name;
-		this.runtime = runtime;
+		this.runtime = 0;
+		this.operations = 0;
 	}
 
 	public void add(long millis) {
 		if (millis < 1)
 			Log.error("negative time added to runtime '" + getName() + "'");
 		runtime += millis;
+		operations += 1;
 	}
 
 	public String getName() {
@@ -35,5 +34,13 @@ public class Runtime {
 
 	public long getRuntime() {
 		return runtime;
+	}
+
+	public long getOperations() {
+		return operations;
+	}
+
+	public double getAverageRuntime() {
+		return 1.0 * runtime / operations;
 	}
 }

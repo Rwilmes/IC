@@ -19,7 +19,7 @@ public class IO {
 
 	public static BufferedImage readImage(String path) throws IOException {
 		// start timer
-		Timer timer = new Timer(TimerType.TIMER_IO);
+		Timer timer = new Timer(TimerType.TIMER_IO_READ);
 
 		// read image
 		BufferedImage i = ImageIO.read(new File(path));
@@ -36,7 +36,7 @@ public class IO {
 	public static void writeImage(BufferedImage i, String path)
 			throws IOException {
 		// start timer
-		Timer timer = new Timer(TimerType.TIMER_IO);
+		Timer timer = new Timer(TimerType.TIMER_IO_WRITE);
 
 		// get format string
 		String[] splits = path.split("\\.");
