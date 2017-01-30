@@ -26,7 +26,7 @@ public class ImageComparison {
 	public static String alysonPath = "data/Alyson_Hannigan_200512.jpg";
 
 	public static void main(String[] args) throws IOException {
-		Log.setDebugMode();
+//		Log.setDebugMode();
 		// Log.setQuiet();
 		// rotate();
 		dHash();

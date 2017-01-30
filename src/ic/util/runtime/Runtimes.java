@@ -14,6 +14,8 @@ public class Runtimes {
 	private static Runtime runtimeIORead = new Runtime("io_read");
 	private static Runtime runtimeIOWrite = new Runtime("io_write");
 	private static Runtime runtimeProcessingResize = new Runtime("proc_resize");
+	private static Runtime runtimeProcessingResizeGrayscale = new Runtime(
+			"proc_resize_gray");
 	private static Runtime runtimeProcessingRotate = new Runtime("proc_rotate");
 	private static Runtime runtimeProcessingColoring = new Runtime(
 			"proc_coloring");
@@ -22,10 +24,15 @@ public class Runtimes {
 	// add all runtimes to this array
 	private static Runtime[] allRuntimes = new Runtime[] { runtimeIORead,
 			runtimeIOWrite, runtimeProcessingColoring, runtimeProcessingResize,
-			runtimeProcessingRotate, runtimeUnknown };
+			runtimeProcessingResizeGrayscale, runtimeProcessingRotate,
+			runtimeUnknown };
 
 	public static void addProcessingTimeResize(long millis) {
 		runtimeProcessingResize.add(millis);
+	}
+
+	public static void addProcessingTimeResizeGrayscale(long millis) {
+		runtimeProcessingResizeGrayscale.add(millis);
 	}
 
 	public static void addProcessingTimeRotate(long millis) {
@@ -95,6 +102,9 @@ public class Runtimes {
 			break;
 		case TIMER_PROCESSING_RESIZE:
 			addProcessingTimeResize(millis);
+			break;
+		case TIMER_PROCESSING_RESIZE_GRAYSCALE:
+			addProcessingTimeResizeGrayscale(millis);
 			break;
 		case TIMER_PROCESSING_ROTATE:
 			addProcessingTimeRotate(millis);

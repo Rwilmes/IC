@@ -50,7 +50,7 @@ public class Processing {
 	public static BufferedImage resizeAndGrayScale(BufferedImage i, int width,
 			int height) {
 		// start timer
-		Timer timer = new Timer(TimerType.TIMER_PROCESSING_RESIZE);
+		Timer timer = new Timer(TimerType.TIMER_PROCESSING_RESIZE_GRAYSCALE);
 
 		// resize and grayscale
 		BufferedImage i2 = new BufferedImage(width, height,
