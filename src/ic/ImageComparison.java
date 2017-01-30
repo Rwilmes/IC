@@ -12,6 +12,7 @@ import ic.util.IO;
 import ic.util.Processing;
 import ic.util.Utils;
 import ic.util.log.Log;
+import ic.util.runtime.Runtimes;
 
 /**
  * Main class of the ImageComparison project.
@@ -108,5 +109,8 @@ public class ImageComparison {
 		
 		BufferedImage i11 = Processing.rotate(i4, 270);
 		IO.writeImage(i11, "data/processing/i1_w200_h200_r270.jpg");
+		
+		
+		Runtimes.printReport();
 	}
 }

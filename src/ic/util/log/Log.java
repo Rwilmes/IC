@@ -25,6 +25,9 @@ public class Log {
 	// print error logs
 	public static boolean PRINT_ERROR = true;
 
+	// if set true each log print will show the respective log level
+	public static boolean PRINT_INFIXES = false;
+
 	// static strings
 	public static final String prefix = "~ ";
 	public static final String separator = "~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
@@ -32,26 +35,40 @@ public class Log {
 	/*
 	 * LOG METHODS
 	 */
+	public static void log() {
+		log("");
+	}
+
 	public static void log(String message) {
 		if (PRINT_LOG && PRINT_GENERAL)
-			System.out.println(prefix + "GN : " + message);
-
+			if (PRINT_INFIXES)
+				System.out.println(prefix + "GN : " + message);
+			else
+				System.out.println(prefix + message);
 	}
 
 	public static void io(String message) {
 		if (PRINT_LOG && PRINT_IO)
-			System.out.println(prefix + "IO : " + message);
+			if (PRINT_INFIXES)
+				System.out.println(prefix + "IO : " + message);
+			else
+				System.out.println(prefix + message);
 	}
 
 	public static void proc(String message) {
 		if (PRINT_LOG && PRINT_PROCESSING)
-			System.out.println(prefix + "PC : " + message);
+			if (PRINT_INFIXES)
+				System.out.println(prefix + "PC : " + message);
+			else
+				System.out.println(prefix + message);
 	}
 
 	public static void error(String message) {
 		if (PRINT_LOG && PRINT_ERROR)
-			System.err.println(prefix + "ER : " + message);
-
+			if (PRINT_INFIXES)
+				System.err.println(prefix + "ER : " + message);
+			else
+				System.out.println(prefix + message);
 	}
 
 	public static void sep() {

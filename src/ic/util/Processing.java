@@ -1,5 +1,6 @@
 package ic.util;
 
+import ic.util.Timer.TimerType;
 import ic.util.log.Log;
 
 import java.awt.Graphics;
@@ -17,14 +18,21 @@ public class Processing {
 
 	/** Resizes (stretches) an image to the given size. **/
 	public static BufferedImage resize(BufferedImage i, int width, int height) {
-		Log.proc("rezising\t" + i.getWidth() + "x" + i.getHeight() + "\t->\t"
-				+ width + "x" + height);
+		// start timer
+		Timer timer = new Timer(TimerType.TIMER_PROCESSING);
 
+		// resize
 		BufferedImage i2 = new BufferedImage(width, height, i.getType());
 		Graphics2D g2d = i2.createGraphics();
 		g2d.drawImage(i, 0, 0, width, height, null);
 		g2d.dispose();
 
+		// stop timer
+		timer.stop();
+		Log.proc("rezising\t" + i.getWidth() + "x" + i.getHeight() + "\t->\t"
+				+ width + "x" + height + "\tt=" + timer.getTotalAsString());
+
+		// return
 		return i2;
 	}
 
@@ -40,13 +48,22 @@ public class Processing {
 
 	/** Converts the image into grayscale. **/
 	public static BufferedImage grayScale(BufferedImage i) {
-		Log.proc("converting image to gray-scale");
+		// start timer
+		Timer timer = new Timer(TimerType.TIMER_PROCESSING);
 
+		// convert into gray image
 		BufferedImage image = new BufferedImage(i.getWidth(), i.getHeight(),
 				BufferedImage.TYPE_BYTE_GRAY);
 		Graphics g = image.getGraphics();
 		g.drawImage(i, 0, 0, null);
 		g.dispose();
+
+		// stop timer
+		timer.stop();
+		Log.proc("converting image to gray-scale\tt="
+				+ timer.getTotalAsString());
+
+		// return
 		return image;
 	}
 
@@ -55,7 +72,8 @@ public class Processing {
 	 * degrees).
 	 **/
 	public static BufferedImage rotate(BufferedImage i, double angle) {
-		Log.proc("rotating image by " + angle + " degrees");
+		// start timer
+		Timer timer = new Timer(TimerType.TIMER_PROCESSING);
 
 		// create affine transformation
 		AffineTransform transform = new AffineTransform();
@@ -71,6 +89,12 @@ public class Processing {
 		g2d.drawImage(i, transform, null);
 		g2d.dispose();
 
+		// stop timer
+		timer.stop();
+		Log.proc("rotating image by " + angle + " degrees\tt="
+				+ timer.getTotalAsString());
+
+		// return
 		return image;
 	}
 }

@@ -8,6 +8,4 @@ package ic.util;
  */
 public class Time {
 
-	
-	
 }
