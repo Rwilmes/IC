@@ -76,19 +76,37 @@ public class ImageComparison {
 		System.out.println(blub);
 		
 		Log.sep();
-		IO.writeImage(i1, blub);
+//		IO.writeImage(i1, blub);
 		
+//		
+//		BufferedImage i2 = Processing.resize(i1, 1.20, 1.0);
+//		IO.writeImage(i2, "data/i1_w20.jpg");
+//		
+//		BufferedImage i3 = Processing.resize(i1, 1.40, 1.0);
+//		IO.writeImage(i3, "data/i1_w40.jpg");
+//		
+		BufferedImage i4 = Processing.resize(i1, 0.5, 0.5);
+		IO.writeImage(i4, "data/processing/i1_w50_h50.jpg");
 		
-		BufferedImage i2 = Processing.resize(i1, 1.20, 1.0);
-		IO.writeImage(i2, "data/i1_w20.jpg");
+//		BufferedImage i5 = Processing.grayScale(i4);
+//		IO.writeImage(i5, "data/i1_w200_h200_gray.jpg");
 		
-		BufferedImage i3 = Processing.resize(i1, 1.40, 1.0);
-		IO.writeImage(i3, "data/i1_w40.jpg");
+		BufferedImage i6 = Processing.rotate(i4, 45);
+		IO.writeImage(i6, "data/processing/i1_w200_h200_r45.jpg");
 		
-		BufferedImage i4 = Processing.resize(i1, 2.0, 2.0);
-		IO.writeImage(i4, "data/i1_w200_h200.jpg");
+		BufferedImage i7 = Processing.rotate(i4, 90);
+		IO.writeImage(i7, "data/processing/i1_w200_h200_r90.jpg");
 		
-		BufferedImage i5 = Processing.grayScale(i4);
-		IO.writeImage(i5, "data/i1_w200_h200_gray.jpg");
+		BufferedImage i8 = Processing.rotate(i4, 135);
+		IO.writeImage(i8, "data/processing/i1_w200_h200_r135.jpg");
+		
+		BufferedImage i9 = Processing.rotate(i4, 180);
+		IO.writeImage(i9, "data/processing/i1_w200_h200_r180.jpg");
+		
+		BufferedImage i10 = Processing.rotate(i4, 225);
+		IO.writeImage(i10, "data/processing/i1_w200_h200_r225.jpg");
+		
+		BufferedImage i11 = Processing.rotate(i4, 270);
+		IO.writeImage(i11, "data/processing/i1_w200_h200_r270.jpg");
 	}
 }
