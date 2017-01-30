@@ -3,12 +3,30 @@ package ic.metrics.name;
 import ic.util.Processing;
 import ic.util.Timer;
 import ic.util.Timer.TimerType;
+import ic.util.Utils;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
-import java.io.IOException;
 
 /**
+ * A DHash object represents a dHash which stands for "difference hash". The
+ * dHash algorithm scales the images down to 9x8 grayscale image. Then it
+ * computes for each row the differences between adjacent pixels and maps them
+ * onto a single bit (0 if the first bit is brighter, 1 if the second bit is
+ * brighter). This results in the 64 bit hash. Because the hash represents the
+ * gradient it is supposed to be robust to rescaling (even with changing aspect
+ * ratios), increasing or decreasing of brightness or contrast or altering of
+ * colors. Even gamma corrections will not impact the results to harshly.
+ * 
+ * The hamming distance between two dHash values illustrates their distance. It
+ * can be interpreted as follows:
+ * 
+ * d(h1, h2) <br>
+ * 0 <=> identical image <br>
+ * 1-10 <=> variant of the same image <br>
+ * 10 <=> different image
+ * 
+ * 
  * An implementation of the dHash algorithm.
  * 
  * @see http://www.hackerfactor.com/blog/?/archives/529-Kind-of-Like-That.html
@@ -17,16 +35,54 @@ import java.io.IOException;
  */
 public class DHash {
 
-	public static String getDHash2(BufferedImage i) throws IOException {
+	private String hash;
+
+	public DHash(String hash) {
+		this.hash = hash;
+	}
+
+	public String getHash() {
+		return hash;
+	}
+
+	/**
+	 * Computes the hamming distance between this DHash object and the given
+	 * DHash object.
+	 * 
+	 * Results should be interpreted as follows: <br>
+	 * 0 <=> identical image <br>
+	 * 1-10 <=> variant of the same image <br>
+	 * 10 <=> different image
+	 **/
+	public int compareTo(DHash hash) {
+		return Utils.computeHammingDistance(getHash(), hash.getHash());
+	}
+
+	/**
+	 * Computes the hamming distance between the two DHashes.
+	 * 
+	 * Results should be interpreted as follows: <br>
+	 * 0 <=> identical image <br>
+	 * 1-10 <=> variant of the same image <br>
+	 * 10 <=> different image
+	 * **/
+	public static int compare(DHash hash1, DHash hash2) {
+		return Utils.computeHammingDistance(hash1.getHash(), hash2.getHash());
+	}
+
+	/** Computes a DHash on the given image. **/
+	public static DHash getDHash(BufferedImage i) {
 		// start timer
 		Timer timer = new Timer(TimerType.TIMER_HASHING_DHASH);
 
 		// resize and grayscale image
 		BufferedImage i2 = Processing.resizeAndGrayScale(i, 9, 8);
 
+		// get data pixels
 		byte[] pixels = ((DataBufferByte) i2.getRaster().getDataBuffer())
 				.getData();
 
+		// init hash bit array
 		int[] hash = new int[64];
 
 		int counter = 0;
@@ -52,6 +108,7 @@ public class DHash {
 			}
 		}
 
+		// init byte array - will be filled with 4 bits each from the hash array
 		byte[] bytes = new byte[16];
 		counter = 0;
 
@@ -72,52 +129,8 @@ public class DHash {
 		// stop timer
 		timer.stop();
 
-		// return hash
-		return dHash;
-	}
-
-	private static int[][] convertTo2DWithoutUsingGetRGB(BufferedImage image) {
-
-		final byte[] pixels = ((DataBufferByte) image.getRaster()
-				.getDataBuffer()).getData();
-		final int width = image.getWidth();
-		final int height = image.getHeight();
-		final boolean hasAlphaChannel = image.getAlphaRaster() != null;
-
-		int[][] result = new int[height][width];
-		if (hasAlphaChannel) {
-			final int pixelLength = 4;
-			for (int pixel = 0, row = 0, col = 0; pixel < pixels.length; pixel += pixelLength) {
-				int argb = 0;
-				argb += (((int) pixels[pixel] & 0xff) << 24); // alpha
-				argb += ((int) pixels[pixel + 1] & 0xff); // blue
-				argb += (((int) pixels[pixel + 2] & 0xff) << 8); // green
-				argb += (((int) pixels[pixel + 3] & 0xff) << 16); // red
-				result[row][col] = argb;
-				col++;
-				if (col == width) {
-					col = 0;
-					row++;
-				}
-			}
-		} else {
-			final int pixelLength = 3;
-			for (int pixel = 0, row = 0, col = 0; pixel < pixels.length; pixel += pixelLength) {
-				int argb = 0;
-				argb += -16777216; // 255 alpha
-				argb += ((int) pixels[pixel] & 0xff); // blue
-				argb += (((int) pixels[pixel + 1] & 0xff) << 8); // green
-				argb += (((int) pixels[pixel + 2] & 0xff) << 16); // red
-				result[row][col] = argb;
-				col++;
-				if (col == width) {
-					col = 0;
-					row++;
-				}
-			}
-		}
-
-		return result;
+		// return new DHash object
+		return new DHash(dHash);
 	}
 
 }

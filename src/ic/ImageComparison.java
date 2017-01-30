@@ -30,30 +30,39 @@ public class ImageComparison {
 		// Log.setQuiet();
 		// rotate();
 		dHash();
-		Runtimes.printReport();
+//		Runtimes.printReport();
+		
+//		dHash2();
+	}
+	
+	
+	public static void dHash2() throws IOException {
+		BufferedImage image1 = IO.readImage(imagePath1);
+		BufferedImage image2 = IO.readImage(imagePath2);
+		
 	}
 
 	public static void dHash() throws IOException {
 		BufferedImage i = IO.readImage(alysonPath);
 
-		String hash = DHash.getDHash2(i);
+		DHash hash = DHash.getDHash(i);
 
 		BufferedImage i2 = Processing.resize(i, 1.2, 1.2);
-		String hash2 = DHash.getDHash2(i2);
+		DHash hash2 = DHash.getDHash(i2);
 
 		BufferedImage i3 = Processing.resize(i, 1.5, 1.0);
-		String hash3 = DHash.getDHash2(i3);
+		DHash  hash3 = DHash.getDHash(i3);
 
 		BufferedImage i4 = Processing.grayScale(i);
-		String hash4 = DHash.getDHash2(i4);
+		DHash  hash4 = DHash.getDHash(i4);
 
 		BufferedImage i5 = Processing.rotate(i, 90);
-		String hash5 = DHash.getDHash2(i5);
+		DHash  hash5 = DHash.getDHash(i5);
 
-		System.out.println(Utils.computeHammingDistance(hash, hash2));
-		System.out.println(Utils.computeHammingDistance(hash, hash3));
-		System.out.println(Utils.computeHammingDistance(hash, hash4));
-		System.out.println(Utils.computeHammingDistance(hash, hash5));
+		System.out.println(hash.compareTo(hash2));
+		System.out.println(hash.compareTo(hash3));
+		System.out.println(hash.compareTo(hash4));
+		System.out.println(hash.compareTo(hash5));
 
 	}
 
