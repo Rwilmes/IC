@@ -17,11 +17,12 @@ public class Runtimes {
 	private static Runtime runtimeProcessingRotate = new Runtime("proc_rotate");
 	private static Runtime runtimeProcessingColoring = new Runtime(
 			"proc_coloring");
+	private static Runtime runtimeUnknown = new Runtime("unknown");
 
 	// add all runtimes to this array
 	private static Runtime[] allRuntimes = new Runtime[] { runtimeIORead,
 			runtimeIOWrite, runtimeProcessingColoring, runtimeProcessingResize,
-			runtimeProcessingRotate };
+			runtimeProcessingRotate, runtimeUnknown };
 
 	public static void addProcessingTimeResize(long millis) {
 		runtimeProcessingResize.add(millis);
@@ -41,6 +42,10 @@ public class Runtimes {
 
 	public static void addIOTimeWrite(long millis) {
 		runtimeIOWrite.add(millis);
+	}
+
+	public static void addUnknownTime(long millis) {
+		runtimeUnknown.add(millis);
 	}
 
 	public static long getProcessingTime() {
@@ -94,6 +99,9 @@ public class Runtimes {
 		case TIMER_PROCESSING_ROTATE:
 			addProcessingTimeRotate(millis);
 			break;
+		default:
+			addUnknownTime(millis);
+			break;
 		}
 	}
 
@@ -106,10 +114,12 @@ public class Runtimes {
 		Log.log("PORTION" + "\t" + "TOTAL (ms)" + "\t" + "#" + "\t" + "AVG"
 				+ "\t" + "NAME");
 		for (Runtime rt : allRuntimes) {
-			Log.log(Math.floor((10000.0 * rt.getRuntime() / total)) / 10000.0
-					+ "\t" + rt.getRuntime() + "\t\t" + rt.getOperations()
-					+ "\t" + Math.floor(10000.0 * rt.getAverageRuntime())
-					/ 10000.0 + "\t" + rt.getName());
+			long runtime = rt.getRuntime();
+			if (runtime != 0)
+				Log.log(Math.floor((10000.0 * runtime / total)) / 10000.0
+						+ "\t" + runtime + "\t\t" + rt.getOperations() + "\t"
+						+ Math.floor(10000.0 * rt.getAverageRuntime())
+						/ 10000.0 + "\t" + rt.getName());
 		}
 		Log.log("1.0000" + "\t" + total + "\t\t" + totalOperations + "\t"
 				+ Math.floor(10000.0 * total / totalOperations) / 10000.0

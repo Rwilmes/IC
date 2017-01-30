@@ -1,7 +1,9 @@
 package ic;
 
+import ic.metrics.name.DHash;
 import ic.util.IO;
 import ic.util.Processing;
+import ic.util.Utils;
 import ic.util.log.Log;
 import ic.util.runtime.Runtimes;
 
@@ -16,18 +18,46 @@ import java.io.IOException;
  */
 public class ImageComparison {
 
+	public static String imagePath1 = "data/P1080493.JPG";
+	public static String imagePath2 = "data/P1080499.JPG";
+	public static String imagePath3 = "data/P1080536.JPG";
+	public static String imagePath4 = "data/P1080538.JPG";
+
+	public static String alysonPath = "data/Alyson_Hannigan_200512.jpg";
+
 	public static void main(String[] args) throws IOException {
 		Log.setDebugMode();
+		// Log.setQuiet();
+		// rotate();
+		dHash();
+		Runtimes.printReport();
+	}
 
-		rotate();
+	public static void dHash() throws IOException {
+		BufferedImage i = IO.readImage(alysonPath);
+
+		String hash = DHash.getDHash2(i);
+
+		BufferedImage i2 = Processing.resize(i, 1.2, 1.2);
+		String hash2 = DHash.getDHash2(i2);
+
+		BufferedImage i3 = Processing.resize(i, 1.5, 1.0);
+		String hash3 = DHash.getDHash2(i3);
+
+		BufferedImage i4 = Processing.grayScale(i);
+		String hash4 = DHash.getDHash2(i4);
+
+		BufferedImage i5 = Processing.rotate(i, 90);
+		String hash5 = DHash.getDHash2(i5);
+
+		System.out.println(Utils.computeHammingDistance(hash, hash2));
+		System.out.println(Utils.computeHammingDistance(hash, hash3));
+		System.out.println(Utils.computeHammingDistance(hash, hash4));
+		System.out.println(Utils.computeHammingDistance(hash, hash5));
+
 	}
 
 	public static void rotate() throws IOException {
-		String imagePath1 = "data/P1080493.JPG";
-		String imagePath2 = "data/P1080499.JPG";
-		String imagePath3 = "data/P1080536.JPG";
-		String imagePath4 = "data/P1080538.JPG";
-
 		BufferedImage i1 = IO.readImage(imagePath1);
 
 		BufferedImage i4 = Processing.resize(i1, 0.5, 0.5);
@@ -51,6 +81,5 @@ public class ImageComparison {
 		BufferedImage i11 = Processing.rotate(i4, 270);
 		IO.writeImage(i11, "data/processing/i1_w50_h50_r270.jpg");
 
-		Runtimes.printReport();
 	}
 }

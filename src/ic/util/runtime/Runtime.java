@@ -22,7 +22,7 @@ public class Runtime {
 	}
 
 	public void add(long millis) {
-		if (millis < 1)
+		if (millis < 0)
 			Log.error("negative time added to runtime '" + getName() + "'");
 		runtime += millis;
 		operations += 1;

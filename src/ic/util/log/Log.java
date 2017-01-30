@@ -29,8 +29,8 @@ public class Log {
 	public static boolean PRINT_INFIXES = false;
 
 	// static strings
-	public static final String prefix = "~ ";
-	public static final String separator = "~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+	private static final String prefix = "~ ";
+	private static final String separator = "~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
 
 	/*
 	 * LOG METHODS

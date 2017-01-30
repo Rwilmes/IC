@@ -5,6 +5,7 @@ import ic.util.log.Log;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
@@ -29,7 +30,7 @@ public class Processing {
 
 		// stop timer
 		timer.stop();
-		Log.proc("rezising\t" + i.getWidth() + "x" + i.getHeight() + "\t->\t"
+		Log.proc("resizing\t" + i.getWidth() + "x" + i.getHeight() + "\t->\t"
 				+ width + "x" + height + "\tt=" + timer.getTotalAsString());
 
 		// return
@@ -44,6 +45,30 @@ public class Processing {
 
 		return resize(i, (int) Math.floor(scaledWidth),
 				(int) Math.floor(scaledHeight));
+	}
+
+	public static BufferedImage resizeAndGrayScale(BufferedImage i, int width,
+			int height) {
+		// start timer
+		Timer timer = new Timer(TimerType.TIMER_PROCESSING_RESIZE);
+
+		// resize and grayscale
+		BufferedImage i2 = new BufferedImage(width, height,
+				BufferedImage.TYPE_BYTE_GRAY);
+		Graphics2D g2d = i2.createGraphics();
+		g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+				RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+
+		g2d.drawImage(i, 0, 0, width, height, null);
+		g2d.dispose();
+
+		// stop timer
+		timer.stop();
+		Log.proc("resizing and gray-scaling " + width + "x" + height + "\tt="
+				+ timer.getTotalAsString());
+
+		// return
+		return i2;
 	}
 
 	/** Converts the image into grayscale. **/

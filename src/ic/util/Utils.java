@@ -21,7 +21,7 @@ public class Utils {
 		else
 			Log.log("dimension: " + i.getWidth() + "x" + i.getHeight());
 	}
-	
+
 	/** Converts an Image into BufferedImage. **/
 	public static BufferedImage toBufferedImage(Image i) {
 		if (i instanceof BufferedImage)
@@ -37,5 +37,20 @@ public class Utils {
 		bGr.dispose();
 
 		return bi;
+	}
+
+	/** Computes the byte-wise hamming distance between the two strings. **/
+	public static int computeHammingDistance(String s1, String s2) {
+		if (s1.length() != s2.length())
+			return -1;
+
+		int counter = 0;
+
+		for (int i = 0; i < s1.length(); i++) {
+			if (s1.charAt(i) != s2.charAt(i))
+				counter++;
+		}
+
+		return counter;
 	}
 }
