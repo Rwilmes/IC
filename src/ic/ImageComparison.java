@@ -8,6 +8,10 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import ic.image.Image;
+import ic.util.IO;
+import ic.util.Processing;
+import ic.util.Utils;
+import ic.util.log.Log;
 
 /**
  * Main class of the ImageComparison project.
@@ -18,6 +22,7 @@ import ic.image.Image;
 public class ImageComparison {
 
 	public static void main(String[] args) throws IOException {
+		Log.setDebugMode();
 		// TODO: IMPORT ARGLIST
 		//
 		// Image i2 = new Image("C://test//bla.png");
@@ -27,34 +32,63 @@ public class ImageComparison {
 		// Image i4 = new Image("bla.png");
 		// System.out.println(i4.getDir() + "\t" + i4.getFilename());
 
-		Image i1 = new Image("data/Alyson_Hannigan_200512.jpg");
-		System.out.println(i1.getDir() + "\t" + i1.getFilename());
-
-		BufferedImage bi1 = ImageIO.read(new File(i1.getPath()));
-
+//		Image i1 = new Image("data/Alyson_Hannigan_200512.jpg");
+//		System.out.println(i1.getDir() + "\t" + i1.getFilename());
+//
+//		BufferedImage bi1 = ImageIO.read(new File(i1.getPath()));
+//
+//		
+//		System.out.println(bi1.getWidth() + "\t" + bi1.getHeight());
+//		
+//		int scaledWidth = 9;
+//		int scaledHeight = 8;
+//
+//		BufferedImage bi2 = new BufferedImage(scaledWidth, scaledHeight, bi1.getType());
+//
+//		System.out.println(bi2.getWidth() + "\t" + bi2.getHeight());
+//		
+//		Graphics2D g2d = bi2.createGraphics();
+//
+//		g2d.drawImage(bi1, 0, 0, scaledWidth, scaledHeight, null);
+//		g2d.dispose();
+//
+//		System.out.println(bi2.getWidth() + "\t" + bi2.getHeight());
+//		
+//		String outputFormat = "jpg";
+//		String outputPath = "data/Alyson_Hannigan_200512_rezised " + "." + outputFormat;
+//		
+//		
+//		boolean blub = ImageIO.write(bi2, outputFormat, new File(outputPath));
+//		System.out.println(blub);
+//		
 		
-		System.out.println(bi1.getWidth() + "\t" + bi1.getHeight());
+		String imagePath1 = "data/P1080493.JPG";
+		String imagePath2 = "data/P1080499.JPG";
+		String imagePath3 = "data/P1080536.JPG";
+		String imagePath4 = "data/P1080538.JPG";
 		
-		int scaledWidth = 9;
-		int scaledHeight = 8;
+		BufferedImage i1 = IO.readImage(imagePath1);
+		Utils.printDimension(i1);
 
-		BufferedImage bi2 = new BufferedImage(scaledWidth, scaledHeight, bi1.getType());
-
-		System.out.println(bi2.getWidth() + "\t" + bi2.getHeight());
+		IO.writeImage(i1, "data/copy1.JPG");
 		
-		Graphics2D g2d = bi2.createGraphics();
-
-		g2d.drawImage(bi1, 0, 0, scaledWidth, scaledHeight, null);
-		g2d.dispose();
-
-		System.out.println(bi2.getWidth() + "\t" + bi2.getHeight());
-		
-		String outputFormat = "jpg";
-		String outputPath = "data/Alyson_Hannigan_200512_rezised " + "." + outputFormat;
-		
-		
-		boolean blub = ImageIO.write(bi2, outputFormat, new File(outputPath));
+		String blub = IO.changeImageFormat(imagePath1, "png");
 		System.out.println(blub);
 		
+		Log.sep();
+		IO.writeImage(i1, blub);
+		
+		
+		BufferedImage i2 = Processing.resize(i1, 1.20, 1.0);
+		IO.writeImage(i2, "data/i1_w20.jpg");
+		
+		BufferedImage i3 = Processing.resize(i1, 1.40, 1.0);
+		IO.writeImage(i3, "data/i1_w40.jpg");
+		
+		BufferedImage i4 = Processing.resize(i1, 2.0, 2.0);
+		IO.writeImage(i4, "data/i1_w200_h200.jpg");
+		
+		BufferedImage i5 = Processing.grayScale(i4);
+		IO.writeImage(i5, "data/i1_w200_h200_gray.jpg");
 	}
 }
