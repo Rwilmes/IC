@@ -1,16 +1,16 @@
 package ic;
 
+import ic.image.Image;
 import ic.metrics.name.DHash;
 import ic.metrics.name.PHash;
 import ic.util.IO;
-import ic.util.Processing;
-import ic.util.Timer;
-import ic.util.Timer.TimerType;
 import ic.util.log.Log;
 import ic.util.runtime.Runtimes;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Main class of the ImageComparison project.
@@ -20,166 +20,82 @@ import java.io.IOException;
  */
 public class ImageComparison {
 
-	public static String imagePath1 = "data/P1080493.JPG";
-	public static String imagePath2 = "data/P1080499.JPG";
-	public static String imagePath3 = "data/P1080536.JPG";
-	public static String imagePath4 = "data/P1080538.JPG";
-
-	// public static String imagePath5 = "data/P1080565.JPG";
-	// public static String imagePath6 = "data/P1080566.JPG";
-
-	// public static String imagePath5 = "data/P1080578.JPG";
-	// public static String imagePath6 = "data/P1080579.JPG";
-
-	// public static String imagePath5 = "data/P1080581.JPG"; 4
-	// public static String imagePath6 = "data/P1080582.JPG";
-
-	// public static String imagePath5 = "data/P1080587.JPG"; 14
-	// public static String imagePath6 = "data/P1080588.JPG";
-
-	// public static String imagePath5 = "data/P1080589.JPG";
-	// public static String imagePath6 = "data/P1080590.JPG";
-
-//	public static String imagePath5 = "data/P1080596.JPG"; 11 
-//	public static String imagePath6 = "data/P1080597.JPG";
+//	public static String imagePath = "data/images/1/P1080541.JPG";
 	
-//	public static String imagePath5 = "data/P1080598.JPG"; 13
-//	public static String imagePath6 = "data/P1080599.JPG";
+	public static String imagePath = "data/images/1/P1080597.JPG";
 
-	public static String imagePath5 = "data/P1080724.JPG"; 
-	public static String imagePath6 = "data/P1080733.JPG";
-	
-	
-	public static String alysonPath = "data/Alyson_Hannigan_200512.jpg";
+	public static int counter = 0;
+
+	public static ArrayList<Image> hits = new ArrayList<Image>();
 
 	public static void main(String[] args) throws IOException {
-		// Log.setDebugMode();
-		// Log.setQuiet();
-		// rotate();
-		// dHash();
+		BufferedImage img = IO.readImage(imagePath);
 
-//		dHash2();
-		pHash();
-//		Runtimes.printReport();
-	}
+		String dir = "data/images/";
+		String dir2 = "C://files/bilder/";
+		boolean recursive = true;
 
-	public static void pHash() throws IOException {
-		BufferedImage i1 = IO.readImage(alysonPath);
-		PHash p1 = PHash.getPHash(i1);
-		
-		BufferedImage i2 = IO.readImage("data/P1080581.JPG");
-		PHash p2 = PHash.getPHash(i2);
-		
-		BufferedImage i3 = IO.readImage("data/P1080582.JPG");
-		PHash p3 = PHash.getPHash(i3);
-		
-		System.out.println("1: " + p1.getHash());
-		System.out.println("2: " + p2.getHash());
-		System.out.println("3: " + p3.getHash());
-		
-		System.out.println("1 vs 2: " + p1.compareTo(p2));
-		System.out.println("1 vs 3: " + p1.compareTo(p3));
-		
-		System.out.println("2 vs 3: " + p2.compareTo(p3));
-		
-		
-		BufferedImage i4 = Processing.resize(i3, 1.3, 1.9);
-		
+		 searchDuplicates(img, dir, recursive);
+		searchDuplicates(img, dir2, recursive);
 
-		PHash p4 = PHash.getPHash(i4);
-		System.out.println("4: " + p4.getHash());
-		System.out.println("3 vs 4: " + p4.compareTo(p3));
-		
-		
+		Log.sep();
+		Log.log("probable hits for '" + imagePath + "' :");
+		for (int i = 0; i < hits.size(); i++) {
+			Log.log(i + "\t" + hits.get(i).getPath());
+		}
+
 		Runtimes.printReport();
-	}
-	
-	public static void dHash2() throws IOException {
-//		BufferedImage image1 = IO.readImage(imagePath1);
-//		BufferedImage image2 = IO.readImage(imagePath2);
-//		BufferedImage image3 = IO.readImage(imagePath3);
-//		BufferedImage image4 = IO.readImage(imagePath4);
-		BufferedImage image5 = IO.readImage(imagePath5);
-		BufferedImage image6 = IO.readImage(imagePath6);
-//
-//		DHash hash1 = DHash.getDHash(image1);
-//		DHash hash2 = DHash.getDHash(image2);
-//		DHash hash3 = DHash.getDHash(image3);
-//		DHash hash4 = DHash.getDHash(image4);
-		DHash hash5 = DHash.getDHash(image5);
-		DHash hash6 = DHash.getDHash(image6);
-
-//		Log.log("1 vs all");
-//		System.out.println(hash1.compareTo(hash2));
-//		System.out.println(hash1.compareTo(hash3));
-//		System.out.println(hash1.compareTo(hash4));
-//
-//		Log.log("2 vs all");
-//		System.out.println(hash2.compareTo(hash1));
-//		System.out.println(hash2.compareTo(hash3));
-//		System.out.println(hash2.compareTo(hash4));
-//
-//		Log.log("3 vs all");
-//		System.out.println(hash3.compareTo(hash1));
-//		System.out.println(hash3.compareTo(hash2));
-//		System.out.println(hash3.compareTo(hash4));
-//
-//		Log.log("4 vs all");
-//		System.out.println(hash4.compareTo(hash1));
-//		System.out.println(hash4.compareTo(hash2));
-//		System.out.println(hash4.compareTo(hash3));
-
-		Log.log("5 vs 6");
-		System.out.println(hash5.compareTo(hash6));
-	}
-
-	public static void dHash() throws IOException {
-		BufferedImage i = IO.readImage(alysonPath);
-
-		DHash hash = DHash.getDHash(i);
-
-		BufferedImage i2 = Processing.resize(i, 1.2, 1.2);
-		DHash hash2 = DHash.getDHash(i2);
-
-		BufferedImage i3 = Processing.resize(i, 1.5, 1.0);
-		DHash hash3 = DHash.getDHash(i3);
-
-		BufferedImage i4 = Processing.grayScale(i);
-		DHash hash4 = DHash.getDHash(i4);
-
-		BufferedImage i5 = Processing.rotate(i, 90);
-		DHash hash5 = DHash.getDHash(i5);
-
-		System.out.println(hash.compareTo(hash2));
-		System.out.println(hash.compareTo(hash3));
-		System.out.println(hash.compareTo(hash4));
-		System.out.println(hash.compareTo(hash5));
 
 	}
 
-	public static void rotate() throws IOException {
-		BufferedImage i1 = IO.readImage(imagePath1);
+	public static void searchDuplicates(BufferedImage img, String dir,
+			boolean recursive) throws IOException {
+		DHash dHash = DHash.computeHash(img);
+		PHash pHash = PHash.computeHash(img);
+		searchDuplicates(dHash, pHash, dir, recursive);
+	}
 
-		BufferedImage i4 = Processing.resize(i1, 0.5, 0.5);
-		IO.writeImage(i4, "data/processing/i1_w50_h50.jpg");
+	public static void searchDuplicates(DHash dHash, PHash pHash, String dir,
+			boolean recursive) throws IOException {
+		Log.log("checking '" + dir + "'");
+		File dirFile = new File(dir);
 
-		BufferedImage i6 = Processing.rotate(i4, 45);
-		IO.writeImage(i6, "data/processing/i1_w50_h50_r45.jpg");
+		File[] files = dirFile.listFiles();
 
-		BufferedImage i7 = Processing.rotate(i4, 90);
-		IO.writeImage(i7, "data/processing/i1_w50_h50_r90.jpg");
+		ArrayList<String> dirQueue = new ArrayList<String>();
 
-		BufferedImage i8 = Processing.rotate(i4, 135);
-		IO.writeImage(i8, "data/processing/i1_w50_h50_r135.jpg");
+		for (int i = 0; i < files.length; i++) {
+			String p = files[i].getPath();
+			File file = new File(p);
 
-		BufferedImage i9 = Processing.rotate(i4, 180);
-		IO.writeImage(i9, "data/processing/i1_w50_h50_r180.jpg");
+			if (file.isFile()) {
+				BufferedImage image = IO.readImage(p);
+				DHash dh = DHash.computeHash(image);
+				PHash ph = PHash.computeHash(image);
 
-		BufferedImage i10 = Processing.rotate(i4, 225);
-		IO.writeImage(i10, "data/processing/i1_w50_h50_r225.jpg");
+				int dhDistance = dHash.compareTo(dh);
+				int phDistance = pHash.compareTo(ph);
 
-		BufferedImage i11 = Processing.rotate(i4, 270);
-		IO.writeImage(i11, "data/processing/i1_w50_h50_r270.jpg");
+				String line = "\t" + counter + "\t" + dhDistance + "\t"
+						+ phDistance + "\t" + files[i];
 
+				if (dhDistance <= 11 && phDistance <= 11) {
+					line += "\t" + "HIT";
+					hits.add(new Image(p, dh, ph));
+				}
+
+				Log.log(line);
+				counter++;
+			}
+
+			if (file.isDirectory()) {
+				dirQueue.add(p);
+			}
+		}
+
+		// check subdirs recursively
+		if (recursive)
+			for (String s : dirQueue)
+				searchDuplicates(dHash, pHash, s, recursive);
 	}
 }
