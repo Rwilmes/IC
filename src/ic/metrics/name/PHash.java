@@ -1,5 +1,6 @@
 package ic.metrics.name;
 
+import ic.metrics.hashes.ImageHash;
 import ic.util.DCT;
 import ic.util.Processing;
 import ic.util.Timer;
@@ -44,18 +45,13 @@ import java.awt.image.DataBufferByte;
  * @author Rwilmes
  * 
  */
-public class PHash {
+public class PHash extends ImageHash {
 
+	// static DCT transformation instance
 	private static final DCT transformation = new DCT(0);
 
-	private String hash;
-
 	public PHash(String hash) {
-		this.hash = hash;
-	}
-
-	public String getHash() {
-		return hash;
+		super(hash);
 	}
 
 	/**
@@ -67,7 +63,7 @@ public class PHash {
 	 * 1-10 <=> variant of the same image <br>
 	 * 10 <=> different image
 	 **/
-	public int compareTo(PHash hash) {
+	public int compareTo(ImageHash hash) {
 		return Utils.computeHammingDistance(getHash(), hash.getHash());
 	}
 

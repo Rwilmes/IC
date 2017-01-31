@@ -1,5 +1,6 @@
 package ic.metrics.name;
 
+import ic.metrics.hashes.ImageHash;
 import ic.util.Processing;
 import ic.util.Timer;
 import ic.util.Timer.TimerType;
@@ -33,16 +34,10 @@ import java.awt.image.DataBufferByte;
  * @author Rwilmes
  * 
  */
-public class DHash {
-
-	private String hash;
+public class DHash extends ImageHash {
 
 	public DHash(String hash) {
-		this.hash = hash;
-	}
-
-	public String getHash() {
-		return hash;
+		super(hash);
 	}
 
 	/**
@@ -54,7 +49,8 @@ public class DHash {
 	 * 1-10 <=> variant of the same image <br>
 	 * 10 <=> different image
 	 **/
-	public int compareTo(DHash hash) {
+	@Override
+	public int compareTo(ImageHash hash) {
 		return Utils.computeHammingDistance(getHash(), hash.getHash());
 	}
 
@@ -71,7 +67,7 @@ public class DHash {
 	}
 
 	/** Computes a DHash on the given image. **/
-	public static DHash getDHash(BufferedImage i) {
+	public static ImageHash computeHash(BufferedImage i) {
 		// start timer
 		Timer timer = new Timer(TimerType.TIMER_HASHING_DHASH);
 
@@ -132,5 +128,6 @@ public class DHash {
 		// return new DHash object
 		return new DHash(dHash);
 	}
+
 
 }
