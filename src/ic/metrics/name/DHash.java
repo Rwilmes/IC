@@ -67,12 +67,12 @@ public class DHash extends ImageHash {
 	}
 
 	/** Computes a DHash on the given image. **/
-	public static DHash computeHash(BufferedImage i) {
+	public static DHash computeHash(BufferedImage img) {
 		// start timer
 		Timer timer = new Timer(TimerType.TIMER_HASHING_DHASH);
 
 		// resize and grayscale image
-		BufferedImage i2 = Processing.resizeAndGrayScale(i, 9, 8);
+		BufferedImage i2 = Processing.resizeAndGrayScale(img, 9, 8);
 
 		// get data pixels
 		byte[] pixels = ((DataBufferByte) i2.getRaster().getDataBuffer())
@@ -84,11 +84,11 @@ public class DHash extends ImageHash {
 		int counter = 0;
 
 		// iterate over all rows
-		for (int row = 0; row < 8; row++) {
+		for (int i = 0; i < 8; i++) {
 			// iterate over all pixels of the row
 			for (int j = 0; j < 8; j++) {
 				// index of the specific pixel
-				int index = row * 9 + j;
+				int index = i * 9 + j;
 
 				// convert signed byte into unsigned int
 				int leftPixel = (int) pixels[index] & 0xFF;
@@ -109,9 +109,9 @@ public class DHash extends ImageHash {
 		counter = 0;
 
 		// parse every four bits as one byte
-		for (int j = 0; j < hash.length; j += 4) {
-			bytes[counter] = Byte.parseByte("" + hash[j + 3] + hash[j + 2]
-					+ hash[j + 1] + hash[j], 2);
+		for (int i = 0; i < hash.length; i += 4) {
+			bytes[counter] = Byte.parseByte("" + hash[i + 3] + hash[i + 2]
+					+ hash[i + 1] + hash[i], 2);
 			counter++;
 		}
 
