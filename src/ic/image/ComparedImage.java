@@ -19,7 +19,7 @@ public class ComparedImage extends Image {
 	protected ArrayList<ImageSimilarity> similarityList;
 
 	public ComparedImage(String path, Image baselineImage) {
-		super(path);
+		super(path, null, null);
 		this.baselineImage = baselineImage;
 		this.similarityList = new ArrayList<ImageSimilarity>();
 	}

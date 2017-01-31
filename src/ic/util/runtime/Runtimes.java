@@ -19,13 +19,15 @@ public class Runtimes {
 	private static Runtime runtimeProcessingRotate = new Runtime("proc_rotate");
 	private static Runtime runtimeProcessingColoring = new Runtime(
 			"proc_coloring");
+	private static Runtime runtimeHashingDHash = new Runtime("hash_dHash");
+	private static Runtime runtimeHashingPHash = new Runtime("hash_pHash");
 	private static Runtime runtimeUnknown = new Runtime("unknown");
 
 	// add all runtimes to this array
 	private static Runtime[] allRuntimes = new Runtime[] { runtimeIORead,
 			runtimeIOWrite, runtimeProcessingColoring, runtimeProcessingResize,
 			runtimeProcessingResizeGrayscale, runtimeProcessingRotate,
-			runtimeUnknown };
+			runtimeHashingDHash, runtimeHashingPHash, runtimeUnknown };
 
 	public static void addProcessingTimeResize(long millis) {
 		runtimeProcessingResize.add(millis);
@@ -41,6 +43,14 @@ public class Runtimes {
 
 	public static void addProcessingTimeColoring(long millis) {
 		runtimeProcessingColoring.add(millis);
+	}
+
+	public static void addHashingTimeDHash(long millis) {
+		runtimeHashingDHash.add(millis);
+	}
+
+	public static void addHashingTimePHash(long millis) {
+		runtimeHashingPHash.add(millis);
 	}
 
 	public static void addIOTimeRead(long millis) {
@@ -91,6 +101,12 @@ public class Runtimes {
 	/** Accounts runtime according to the given timer-type. **/
 	public static void accountTime(TimerType type, long millis) {
 		switch (type) {
+		case TIMER_HASHING_DHASH:
+			addHashingTimeDHash(millis);
+			break;
+		case TIMER_HASHING_PHASH:
+			addHashingTimePHash(millis);
+			break;
 		case TIMER_IO_READ:
 			addIOTimeRead(millis);
 			break;
