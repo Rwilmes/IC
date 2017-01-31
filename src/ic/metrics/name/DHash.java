@@ -67,7 +67,7 @@ public class DHash extends ImageHash {
 	}
 
 	/** Computes a DHash on the given image. **/
-	public static ImageHash computeHash(BufferedImage i) {
+	public static DHash computeHash(BufferedImage i) {
 		// start timer
 		Timer timer = new Timer(TimerType.TIMER_HASHING_DHASH);
 
@@ -128,6 +128,5 @@ public class DHash extends ImageHash {
 		// return new DHash object
 		return new DHash(dHash);
 	}
-
 
 }
