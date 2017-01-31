@@ -5,6 +5,7 @@ import ic.util.log.Log;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
 
 /**
  * Utility class containing general utility methods.
@@ -53,4 +54,46 @@ public class Utils {
 
 		return counter;
 	}
+
+	/** Prints the given int matrix. **/
+	public static void printMatrix2D(int[][] matrix) {
+		for (int i = 0; i < matrix.length; i++) {
+			String temp = "";
+			for (int j = 0; j < matrix[i].length; j++) {
+				temp += " " + matrix[i][j];
+			}
+			System.out.println(temp);
+		}
+	}
+
+	/** Prints the given double matrix. **/
+	public static void printMatrix2D(double[][] matrix) {
+		for (int i = 0; i < matrix.length; i++) {
+			String temp = "";
+			for (int j = 0; j < matrix[i].length; j++) {
+				temp += " " + matrix[i][j];
+			}
+			System.out.println(temp);
+		}
+	}
+
+	/** Prints the given char matrix. **/
+	public static void printMatrix2D(char[][] matrix) {
+		for (int i = 0; i < matrix.length; i++) {
+			String temp = "";
+			for (int j = 0; j < matrix[i].length; j++) {
+				temp += " " + matrix[i][j];
+			}
+			System.out.println(temp);
+		}
+	}
+
+	/** Computes the median of the given array. **/
+	public static int computeMedian(int[] array) {
+		int[] temp = new int[array.length];
+		System.arraycopy(array, 0, temp, 0, array.length);
+		Arrays.sort(temp);
+		return temp[temp.length / 2];
+	}
+
 }

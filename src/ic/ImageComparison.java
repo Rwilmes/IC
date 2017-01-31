@@ -1,9 +1,11 @@
 package ic;
 
 import ic.metrics.name.DHash;
+import ic.metrics.name.PHash;
 import ic.util.IO;
 import ic.util.Processing;
-import ic.util.Utils;
+import ic.util.Timer;
+import ic.util.Timer.TimerType;
 import ic.util.log.Log;
 import ic.util.runtime.Runtimes;
 
@@ -56,10 +58,42 @@ public class ImageComparison {
 		// rotate();
 		// dHash();
 
-		dHash2();
+//		dHash2();
+		pHash();
 //		Runtimes.printReport();
 	}
 
+	public static void pHash() throws IOException {
+		BufferedImage i1 = IO.readImage(alysonPath);
+		PHash p1 = PHash.getPHash(i1);
+		
+		BufferedImage i2 = IO.readImage("data/P1080581.JPG");
+		PHash p2 = PHash.getPHash(i2);
+		
+		BufferedImage i3 = IO.readImage("data/P1080582.JPG");
+		PHash p3 = PHash.getPHash(i3);
+		
+		System.out.println("1: " + p1.getHash());
+		System.out.println("2: " + p2.getHash());
+		System.out.println("3: " + p3.getHash());
+		
+		System.out.println("1 vs 2: " + p1.compareTo(p2));
+		System.out.println("1 vs 3: " + p1.compareTo(p3));
+		
+		System.out.println("2 vs 3: " + p2.compareTo(p3));
+		
+		
+		BufferedImage i4 = Processing.resize(i3, 1.3, 1.9);
+		
+
+		PHash p4 = PHash.getPHash(i4);
+		System.out.println("4: " + p4.getHash());
+		System.out.println("3 vs 4: " + p4.compareTo(p3));
+		
+		
+		Runtimes.printReport();
+	}
+	
 	public static void dHash2() throws IOException {
 //		BufferedImage image1 = IO.readImage(imagePath1);
 //		BufferedImage image2 = IO.readImage(imagePath2);
