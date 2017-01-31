@@ -80,7 +80,7 @@ public class PHash extends ImageHash {
 	}
 
 	/** Computes the pHash of a given image. **/
-	public static PHash computePHash(BufferedImage img) {
+	public static PHash computeHash(BufferedImage img) {
 		Timer timer = new Timer(TimerType.TIMER_HASHING_PHASH);
 
 		// resize and grayscale the image
