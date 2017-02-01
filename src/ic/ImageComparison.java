@@ -4,6 +4,7 @@ import ic.image.Image;
 import ic.metrics.name.DHash;
 import ic.metrics.name.PHash;
 import ic.util.IO;
+import ic.util.Processing;
 import ic.util.log.Log;
 import ic.util.runtime.Runtimes;
 
@@ -20,23 +21,38 @@ import java.util.ArrayList;
  */
 public class ImageComparison {
 
-//	public static String imagePath = "data/images/1/P1080541.JPG";
-	
-	public static String imagePath = "data/images/1/P1080597.JPG";
+	// public static String imagePath = "data/images/1/P1080541.JPG";
+
+	public static String imagePath = "data/images/1/P1080579.JPG";
 
 	public static int counter = 0;
 
 	public static ArrayList<Image> hits = new ArrayList<Image>();
+	public static ArrayList<Image> similars = new ArrayList<Image>();
 
 	public static void main(String[] args) throws IOException {
+		imagePath = "data/images/Irland/DSC_5649.jpg";
+
 		BufferedImage img = IO.readImage(imagePath);
+		BufferedImage img_small = Processing.resize(img, 0.3, 0.3);
+		IO.writeImage(img_small, "data/similars/base.jpg");
 
 		String dir = "data/images/";
 		String dir2 = "C://files/bilder/";
 		boolean recursive = true;
 
-		 searchDuplicates(img, dir, recursive);
+		searchDuplicates(img, dir, recursive);
 		searchDuplicates(img, dir2, recursive);
+
+
+		//
+		// BufferedImage i1 = IO.readImage("data/images/1/P1080579.JPG");
+		// i1 = Processing.resize(i1, 0.3, 0.3);
+		// IO.writeImage(i1, "data/images/small/P1080579_small.JPG");
+		//
+		// BufferedImage i2 = IO.readImage("data/images/1/P1080578.JPG");
+		// i2 = Processing.resize(i2, 0.3, 0.3);
+		// IO.writeImage(i2, "data/images/small/P1080578_small.JPG");
 
 		Log.sep();
 		Log.log("probable hits for '" + imagePath + "' :");
@@ -44,7 +60,14 @@ public class ImageComparison {
 			Log.log(i + "\t" + hits.get(i).getPath());
 		}
 
+		Log.sep();
+		Log.log("similar images for '" + imagePath + "' :");
+		for (int i = 0; i < similars.size(); i++) {
+			Log.log(i + "\t" + similars.get(i).getPath());
+		}
+
 		Runtimes.printReport();
+
 
 	}
 
@@ -79,9 +102,17 @@ public class ImageComparison {
 				String line = "\t" + counter + "\t" + dhDistance + "\t"
 						+ phDistance + "\t" + files[i];
 
-				if (dhDistance <= 11 && phDistance <= 11) {
-					line += "\t" + "HIT";
-					hits.add(new Image(p, dh, ph));
+				if (dhDistance <= 11) {
+					if (phDistance <= 11) {
+						line += "\t" + "HIT";
+						hits.add(new Image(p, dh, ph));
+					} else {
+						line += "\t" + "SIMILAR";
+						Image imageTemp = new Image(p, dh, ph);
+						similars.add(imageTemp);
+						IO.writeImage(Processing.resize(image, 0.3, 0.3),
+								"data/similars/" + imageTemp.getFilename());
+					}
 				}
 
 				Log.log(line);
