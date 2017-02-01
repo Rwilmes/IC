@@ -33,12 +33,12 @@ public class Image {
 		this.dHash = dHash;
 		this.pHash = pHash;
 
-		String[] splits = path.split("/");
+		String[] splits = path.split("\\\\");
 		if (splits.length > 1) {
 			this.filename = splits[splits.length - 1];
-			this.dir = splits[0];
-			for (int i = 1; i < splits.length - 1; i++) {
-				this.dir += "/" + splits[i];
+			this.dir = "";
+			for (int i = 0; i < splits.length - 1; i++) {
+				this.dir += splits[i] + "\\";
 			}
 		} else {
 			this.dir = "";
