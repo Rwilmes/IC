@@ -2,6 +2,7 @@ package ic.image;
 
 import ic.metrics.name.DHash;
 import ic.metrics.name.PHash;
+import ic.util.Config;
 import ic.util.IO;
 import ic.util.Processing;
 
@@ -38,7 +39,9 @@ public class Image {
 	public Image(String path) throws IOException {
 		this.path = path;
 		BufferedImage img = IO.readImage(path);
-		this.thumbnail = Processing.resize(img, 150, 150);
+		this.thumbnail = Processing.resize(img,
+				(int) Math.floor(Config.GUI_THUMBNAIL_SIZE.getHeight()),
+				(int) Math.floor(Config.GUI_THUMBNAIL_SIZE.getHeight()));
 
 		this.dHash = DHash.computeHash(img);
 		this.pHash = PHash.computeHash(img);
@@ -54,6 +57,10 @@ public class Image {
 			this.dir = "";
 			this.filename = splits[0];
 		}
+	}
+
+	public BufferedImage getThumbnail() {
+		return thumbnail;
 	}
 
 	public String getPath() {

@@ -7,7 +7,6 @@ import ic.util.log.Log;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Graphics;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -72,17 +71,6 @@ public class MainFrame extends JFrame {
 		// init status panel
 		statusPanel = new StatusPanel();
 		mainPanel.add(statusPanel, BorderLayout.SOUTH);
-	}
-
-	@Override
-	public void paint(Graphics g) {
-		super.paint(g);
-		draw();
-	}
-
-	public void draw() {
-		if (setupPanel != null)
-			setupPanel.draw();
 	}
 
 	public void search(String path, String dir) {

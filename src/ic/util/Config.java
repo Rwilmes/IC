@@ -1,5 +1,7 @@
 package ic.util;
 
+import java.awt.Dimension;
+
 import javax.swing.ImageIcon;
 
 /**
@@ -30,4 +32,8 @@ public class Config {
 	public static final ImageIcon ICON_DONE = IO
 			.readImageIcon("img/done_24x.png");
 
+	public static final int GUI_THUMBNAIL_WIDTH = 50;
+	public static final int GUI_THUMBNAIL_HEIGHT = 50;
+	public static final Dimension GUI_THUMBNAIL_SIZE = new Dimension(
+			GUI_THUMBNAIL_WIDTH, GUI_THUMBNAIL_HEIGHT);
 }

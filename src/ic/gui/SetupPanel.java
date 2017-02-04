@@ -5,10 +5,10 @@ import ic.util.IO;
 import ic.util.Processing;
 import ic.util.log.Log;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -41,7 +41,7 @@ public class SetupPanel extends JPanel {
 	private JFileChooser imageChooser;
 
 	private BufferedImage resizedImage;
-	private JPanel imagePreview;
+	private ImagePanel imagePreview;
 
 	// directory components
 	private JPanel directoryPanel;
@@ -99,7 +99,8 @@ public class SetupPanel extends JPanel {
 		imagePanel.add(imageButton);
 
 		// init preview
-		imagePreview = new JPanel();
+		imagePreview = new ImagePanel(null);
+		imagePreview.setBackground(Color.gray);
 		imagePreview.setMinimumSize(new Dimension(300, 300));
 		imagePreview.setMaximumSize(new Dimension(300, 300));
 
@@ -203,9 +204,10 @@ public class SetupPanel extends JPanel {
 		try {
 			BufferedImage img = IO.readImage(image.getAbsolutePath());
 			resizedImage = Processing.resize(img, 300, 300);
-			Graphics g = imagePreview.getGraphics();
-			g.clearRect(0, 0, 300, 300);
-			g.drawImage(resizedImage, 0, 0, null);
+			imagePreview = new ImagePanel(resizedImage);
+			// Graphics g = imagePreview.getGraphics();
+			// g.clearRect(0, 0, 300, 300);
+			// g.drawImage(resizedImage, 0, 0, null);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -222,10 +224,5 @@ public class SetupPanel extends JPanel {
 	public void selectDirectory(File dir) {
 		selectDirectory(dir.getPath());
 
-	}
-
-	public void draw() {
-		if (resizedImage != null)
-			imagePreview.getGraphics().drawImage(resizedImage, 0, 0, null);
 	}
 }
