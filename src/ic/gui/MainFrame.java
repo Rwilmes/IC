@@ -99,6 +99,8 @@ public class MainFrame extends JFrame {
 		else
 			Log.error("maximum number of tabs reached");
 
+		tabPane.setSelectedIndex(1);
+
 		this.validate();
 	}
 
