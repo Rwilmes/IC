@@ -10,7 +10,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
@@ -95,7 +94,8 @@ public class MainFrame extends JFrame {
 			tabPane.setIconAt(tabPane.getTabCount() - 1, Config.ICON_QUEUE);
 
 		if (tabPane.getTabCount() < Config.GUI_TABS_MAX)
-			tabPane.addTab("Search", Config.ICON_PROCESSING, new JLabel(dir));
+			tabPane.insertTab("Search", Config.ICON_PROCESSING,
+					new SearchPanel(img.getPath(), dir), null, 1);
 		else
 			Log.error("maximum number of tabs reached");
 
