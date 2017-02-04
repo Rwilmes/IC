@@ -1,5 +1,7 @@
 package ic.util;
 
+import javax.swing.ImageIcon;
+
 /**
  * This class is used to configure the ImageComparison program.
  * 
@@ -16,4 +18,8 @@ public class Config {
 
 	public static final String GUI_IMAGE_DEFAULT_DIR = "data/";
 	public static final String GUI_DIRECTORY_DEFAULT_DIR = "data/";
+
+	public static final ImageIcon ICON_SETTINGS = IO
+			.readImageIcon("img/settings_24x.png");
+
 }

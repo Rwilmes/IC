@@ -1,5 +1,9 @@
 package ic.gui;
 
+import ic.image.Image;
+import ic.util.Config;
+import ic.util.GUI;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -8,10 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-
-import ic.image.Image;
-import ic.util.Config;
-import ic.util.GUI;
 
 public class MainFrame extends JFrame {
 
@@ -64,14 +64,14 @@ public class MainFrame extends JFrame {
 
 		// init tabbed pane
 		tabPane = new JTabbedPane(JTabbedPane.TOP);
-		tabPane.insertTab("Setup", null, this.setupPanel, null, 0);
+		tabPane.insertTab("Setup", Config.ICON_SETTINGS, this.setupPanel, null,
+				0);
 
 		mainPanel.add(tabPane, BorderLayout.CENTER);
 
 		// init status panel
 		statusPanel = new StatusPanel();
 		mainPanel.add(statusPanel, BorderLayout.SOUTH);
-
 	}
 
 	@Override

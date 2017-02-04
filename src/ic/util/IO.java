@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  * Class containing utility I/O methods.
@@ -59,5 +60,9 @@ public class IO {
 		}
 
 		return temp + format;
+	}
+
+	public static ImageIcon readImageIcon(String path) {
+		return new ImageIcon(path);
 	}
 }
