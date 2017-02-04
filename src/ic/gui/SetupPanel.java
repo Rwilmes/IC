@@ -1,8 +1,14 @@
 package ic.gui;
 
+import ic.util.Config;
+import ic.util.IO;
+import ic.util.Processing;
+import ic.util.log.Log;
+
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -16,11 +22,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import ic.util.Config;
-import ic.util.IO;
-import ic.util.Processing;
-import ic.util.log.Log;
 
 public class SetupPanel extends JPanel {
 
@@ -129,7 +130,8 @@ public class SetupPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == directoryButton) {
-					int returnVal = directoryChooser.showOpenDialog(thisSetupPanel);
+					int returnVal = directoryChooser
+							.showOpenDialog(thisSetupPanel);
 
 					if (returnVal == JFileChooser.APPROVE_OPTION) {
 						File file = directoryChooser.getSelectedFile();
@@ -152,7 +154,8 @@ public class SetupPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				((MainFrame) parentComponent).search(null, directoryText.getText());
+				((MainFrame) parentComponent).search(null,
+						directoryText.getText());
 				((MainFrame) parentComponent).setProgress(Math.random());
 
 			}
@@ -162,9 +165,10 @@ public class SetupPanel extends JPanel {
 
 		// add glue to fill up vertical space
 		Component glue = Box.createVerticalGlue();
-		((Box.Filler) glue).changeShape(glue.getMinimumSize(), new Dimension(0, Short.MAX_VALUE), // make
-																									// glue
-																									// greedy
+		((Box.Filler) glue).changeShape(glue.getMinimumSize(), new Dimension(0,
+				Short.MAX_VALUE), // make
+									// glue
+									// greedy
 				glue.getMaximumSize());
 		this.add(glue);
 
@@ -173,13 +177,16 @@ public class SetupPanel extends JPanel {
 	public void initFileChoosers() {
 
 		if (imageChooser == null) {
-			imageChooser = new JFileChooser(new File(Config.GUI_IMAGE_DEFAULT_DIR));
+			imageChooser = new JFileChooser(new File(
+					Config.GUI_IMAGE_DEFAULT_DIR));
 			imageChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 			imageButton.setEnabled(true);
 		}
 		if (directoryChooser == null) {
-			directoryChooser = new JFileChooser(new File(Config.GUI_DIRECTORY_DEFAULT_DIR));
-			directoryChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			directoryChooser = new JFileChooser(new File(
+					Config.GUI_DIRECTORY_DEFAULT_DIR));
+			directoryChooser
+					.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			directoryButton.setEnabled(true);
 		}
 	}
@@ -197,7 +204,9 @@ public class SetupPanel extends JPanel {
 		try {
 			BufferedImage img = IO.readImage(image.getAbsolutePath());
 			resizedImage = Processing.resize(img, 300, 300);
-			imagePreview.getGraphics().drawImage(resizedImage, 0, 0, null);
+			Graphics g = imagePreview.getGraphics();
+			g.clearRect(0, 0, 300, 300);
+			g.drawImage(resizedImage, 0, 0, null);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
