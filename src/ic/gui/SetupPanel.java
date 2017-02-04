@@ -151,10 +151,9 @@ public class SetupPanel extends JPanel {
 		searchPanel = new JPanel();
 		searchButton = new JButton("Search");
 		searchButton.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				((MainFrame) parentComponent).search(null,
+				((MainFrame) parentComponent).search(imageText.getText(),
 						directoryText.getText());
 				((MainFrame) parentComponent).setProgress(Math.random());
 

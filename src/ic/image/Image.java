@@ -2,6 +2,11 @@ package ic.image;
 
 import ic.metrics.name.DHash;
 import ic.metrics.name.PHash;
+import ic.util.IO;
+import ic.util.Processing;
+
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 /**
  * An Image object represents an image(-file). It does not contain the actual
@@ -20,6 +25,8 @@ public class Image {
 	protected DHash dHash;
 	protected PHash pHash;
 
+	protected BufferedImage thumbnail;
+
 	public Image(String dir, String filename, DHash dHash, PHash pHash) {
 		this.dir = dir;
 		this.filename = filename;
@@ -28,10 +35,13 @@ public class Image {
 		this.pHash = pHash;
 	}
 
-	public Image(String path, DHash dHash, PHash pHash) {
+	public Image(String path) throws IOException {
 		this.path = path;
-		this.dHash = dHash;
-		this.pHash = pHash;
+		BufferedImage img = IO.readImage(path);
+		this.thumbnail = Processing.resize(img, 150, 150);
+
+		this.dHash = DHash.computeHash(img);
+		this.pHash = PHash.computeHash(img);
 
 		String[] splits = path.split("\\\\");
 		if (splits.length > 1) {

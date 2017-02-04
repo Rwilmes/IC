@@ -1,6 +1,6 @@
 package ic.gui;
 
-import ic.image.Image;
+import ic.gui.search.SearchPanel;
 import ic.util.Config;
 import ic.util.GUI;
 import ic.util.log.Log;
@@ -85,7 +85,7 @@ public class MainFrame extends JFrame {
 			setupPanel.draw();
 	}
 
-	public void search(Image img, String dir) {
+	public void search(String path, String dir) {
 		for (int i = 1; i < tabPane.getTabCount() - 1; i++) {
 			tabPane.setIconAt(i, Config.ICON_DONE);
 		}
@@ -95,7 +95,7 @@ public class MainFrame extends JFrame {
 
 		if (tabPane.getTabCount() < Config.GUI_TABS_MAX)
 			tabPane.insertTab("Search", Config.ICON_PROCESSING,
-					new SearchPanel(img.getPath(), dir), null, 1);
+					new SearchPanel(path, dir), null, 1);
 		else
 			Log.error("maximum number of tabs reached");
 

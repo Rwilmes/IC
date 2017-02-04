@@ -69,7 +69,15 @@ public class ImageComparison {
 		// Runtimes.printReport();
 
 		guiTest();
-
+		//
+		// System.out.println("1");
+		// BufferedImage i = IO.readImage("data/queue.png");
+		//
+		// System.out.println("2\t" + i.getType());
+		// BufferedImage is = Processing.resize(i, 24, 24);
+		//
+		// System.out.println("3\t" + is.getType());
+		// IO.writeImage(is, "img/queue_24x.png");
 	}
 
 	public static void guiTest() {
@@ -112,10 +120,10 @@ public class ImageComparison {
 				if (dhDistance <= 11) {
 					if (phDistance <= 11) {
 						line += "\t" + "HIT";
-						hits.add(new Image(p, dh, ph));
+						hits.add(new Image(p));
 					} else {
 						line += "\t" + "SIMILAR";
-						Image imageTemp = new Image(p, dh, ph);
+						Image imageTemp = new Image(p);
 						similars.add(imageTemp);
 						IO.writeImage(Processing.resize(image, 0.3, 0.3),
 								"data/similars/" + imageTemp.getFilename());

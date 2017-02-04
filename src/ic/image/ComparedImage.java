@@ -2,6 +2,7 @@ package ic.image;
 
 import ic.util.exceptions.ImageSimilarityOverflowException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -18,8 +19,8 @@ public class ComparedImage extends Image {
 	protected Image baselineImage;
 	protected ArrayList<ImageSimilarity> similarityList;
 
-	public ComparedImage(String path, Image baselineImage) {
-		super(path, null, null);
+	public ComparedImage(String path, Image baselineImage) throws IOException {
+		super(path);
 		this.baselineImage = baselineImage;
 		this.similarityList = new ArrayList<ImageSimilarity>();
 	}
