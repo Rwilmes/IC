@@ -1,9 +1,5 @@
 package ic.gui;
 
-import ic.image.Image;
-import ic.util.Config;
-import ic.util.GUI;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -13,6 +9,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import ic.image.Image;
+import ic.util.Config;
+import ic.util.GUI;
+
 public class MainFrame extends JFrame {
 
 	/**
@@ -21,9 +21,12 @@ public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public static final String title = "ImageComparison";
 
+	public MainFrame thisMainFrame;
+
 	private JPanel mainPanel;
 	private JTabbedPane tabPane;
 	private SetupPanel setupPanel;
+	private StatusPanel statusPanel;
 
 	public MainFrame() {
 		this(new Dimension(Config.GUI_MIN_WIDTH, Config.GUI_MIN_HEIGHT),
@@ -64,6 +67,11 @@ public class MainFrame extends JFrame {
 		tabPane.insertTab("Setup", null, this.setupPanel, null, 0);
 
 		mainPanel.add(tabPane, BorderLayout.CENTER);
+
+		// init status panel
+		statusPanel = new StatusPanel();
+		mainPanel.add(statusPanel, BorderLayout.SOUTH);
+
 	}
 
 	@Override
@@ -81,4 +89,11 @@ public class MainFrame extends JFrame {
 		this.tabPane.addTab("Search", new JLabel(dir));
 		this.validate();
 	}
+
+	public void setProgress(double value) {
+		statusPanel.setProgress(value);
+		statusPanel.statusText.setText(statusPanel.statusText.getText() + "a");
+		this.repaint();
+	}
+
 }
