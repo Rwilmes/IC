@@ -3,6 +3,7 @@ package ic.gui;
 import ic.image.Image;
 import ic.util.Config;
 import ic.util.GUI;
+import ic.util.log.Log;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -85,8 +86,19 @@ public class MainFrame extends JFrame {
 			setupPanel.draw();
 	}
 
-	public void search(Image i, String dir) {
-		this.tabPane.addTab("Search", new JLabel(dir));
+	public void search(Image img, String dir) {
+		for (int i = 1; i < tabPane.getTabCount() - 1; i++) {
+			tabPane.setIconAt(i, Config.ICON_DONE);
+		}
+
+		if (tabPane.getTabCount() > 1)
+			tabPane.setIconAt(tabPane.getTabCount() - 1, Config.ICON_QUEUE);
+
+		if (tabPane.getTabCount() < Config.GUI_TABS_MAX)
+			tabPane.addTab("Search", Config.ICON_PROCESSING, new JLabel(dir));
+		else
+			Log.error("maximum number of tabs reached");
+
 		this.validate();
 	}
 
