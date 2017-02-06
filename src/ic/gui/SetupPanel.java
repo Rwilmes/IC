@@ -161,7 +161,9 @@ public class SetupPanel extends JPanel {
 		searchPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		searchButton = new JButton("Search");
 		searchButton.setEnabled(false);
-		searchButton.setPreferredSize(new Dimension(65, 35));
+		searchButton.setPreferredSize(new Dimension(410, 55));
+		searchButton.setMinimumSize(new Dimension(410, 55));
+		searchButton.setMaximumSize(new Dimension(410, 55));
 		searchButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -181,7 +183,7 @@ public class SetupPanel extends JPanel {
 									// glue
 									// greedy
 				glue.getMaximumSize());
-//		this.add(glue);
+		this.add(glue);
 
 	}
 

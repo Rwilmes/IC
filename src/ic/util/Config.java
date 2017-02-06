@@ -21,8 +21,8 @@ public class Config {
 	public static final String GUI_IMAGE_DEFAULT_DIR = "data/";
 	public static final String GUI_DIRECTORY_DEFAULT_DIR = "data/images/";
 
-	public static final Dimension GUI_PREVIEW_IMAGE_SIZE = new Dimension(300,
-			300);
+	public static final Dimension GUI_PREVIEW_IMAGE_SIZE = new Dimension(410,
+			410);
 
 	public static final int GUI_TABS_MAX = 20;
 
@@ -35,8 +35,8 @@ public class Config {
 	public static final ImageIcon ICON_DONE = IO
 			.readImageIcon("img/done_24x.png");
 
-	public static final int GUI_THUMBNAIL_WIDTH = 100;
-	public static final int GUI_THUMBNAIL_HEIGHT = 100;
+	public static final int GUI_THUMBNAIL_WIDTH = 150;
+	public static final int GUI_THUMBNAIL_HEIGHT = 150;
 	public static final Dimension GUI_THUMBNAIL_SIZE = new Dimension(
 			GUI_THUMBNAIL_WIDTH, GUI_THUMBNAIL_HEIGHT);
 
