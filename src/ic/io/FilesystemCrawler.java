@@ -76,8 +76,6 @@ public class FilesystemCrawler implements Runnable {
 		}
 
 		broadcastProgress("done!", 1.0);
-		// broadcastProgress("processing images", 0.5);
-
 	}
 
 	/** Broadcasts the image to all registered components. **/
