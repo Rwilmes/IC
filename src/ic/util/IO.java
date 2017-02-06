@@ -87,14 +87,19 @@ public class IO {
 				if (recursive)
 					collectFiles(f, fileList, recursive);
 			} else {
-				String path = f.getPath();
-				String[] splits = path.split("\\.");
-
 				// check if file format is supported
-				if (IO.isFormatSupported(splits[splits.length - 1]))
+				if (IO.isFormatSupported(f))
 					fileList.add(f);
 			}
 		}
+	}
+
+	/** Returns whether or not the given file-format is supported. **/
+	public static boolean isFormatSupported(File file) {
+		String path = file.getPath();
+		String[] splits = path.split("\\.");
+
+		return isFormatSupported(splits[splits.length - 1]);
 	}
 
 	/** Returns whether or not the given file-format is supported. **/

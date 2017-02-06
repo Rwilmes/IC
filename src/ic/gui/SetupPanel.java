@@ -6,6 +6,7 @@ import ic.metrics.name.PHash;
 import ic.util.Config;
 import ic.util.IO;
 import ic.util.Processing;
+import ic.util.log.Log;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -213,21 +214,25 @@ public class SetupPanel extends JPanel {
 		imageText.setText(image.getPath());
 
 		try {
-			BufferedImage img = IO.readImage(image.getAbsolutePath());
-			this.baseImage = new Image(img, image.getPath(),
-					DHash.computeHash(img), PHash.computeHash(img));
-			resizedImage = Processing.resize(img,
-					Config.GUI_PREVIEW_IMAGE_SIZE.width,
-					Config.GUI_PREVIEW_IMAGE_SIZE.height);
-			imagePreview.setImage(resizedImage);
+			if (IO.isFormatSupported(image)) {
+				BufferedImage img = IO.readImage(image.getAbsolutePath());
+				this.baseImage = new Image(img, image.getPath(),
+						DHash.computeHash(img), PHash.computeHash(img));
+				resizedImage = Processing.resize(img,
+						Config.GUI_PREVIEW_IMAGE_SIZE.width,
+						Config.GUI_PREVIEW_IMAGE_SIZE.height);
+				imagePreview.setImage(resizedImage);
 
-			searchButton.setEnabled(true);
+				searchButton.setEnabled(true);
+
+				revalidate();
+				repaint();
+			} else {
+				Log.error("file format not supported '" + image.getPath() + "'");
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		revalidate();
-		repaint();
 	}
 
 	public void selectDirectory(String dir) {
