@@ -6,6 +6,7 @@ import ic.util.log.Log;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -64,5 +65,22 @@ public class IO {
 
 	public static ImageIcon readImageIcon(String path) {
 		return new ImageIcon(path);
+	}
+
+	/** Collects all files found in the dir and below and adds the mto the list. **/
+	public static void collectFiles(File dir, ArrayList<File> fileList,
+			boolean recursive) {
+		if (!dir.exists() || !dir.isDirectory())
+			return;
+
+		File[] files = dir.listFiles();
+
+		for (File f : files) {
+			if (f.isDirectory()) {
+				if (recursive)
+					collectFiles(f, fileList, recursive);
+			} else
+				fileList.add(f);
+		}
 	}
 }

@@ -26,6 +26,10 @@ public class HashInfoPanel extends JPanel {
 				Config.GUI_THUMBNAIL_HEIGHT - 10));
 		imagePanel.setBackground(Color.gray);
 
+		
+//		System.out.println(hashLabel.getPreferredSize().width);
+		hashLabel.setPreferredSize(new Dimension(120, hashLabel.getPreferredSize().height));
+		
 		textPanel.add(distanceLabel);
 		textPanel.add(hashLabel);
 		this.add(textPanel);

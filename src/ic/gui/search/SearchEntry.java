@@ -43,11 +43,8 @@ public class SearchEntry extends JPanel {
 		thisEntry = this;
 		this.thisParent = thisParent;
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-		System.out.println("init search entry: " + img.getPath());
-
 		this.img = img;
-		// final BufferedImage thumbnailImage = img.getThumbnail();
+		
 		thumbnail = new ImagePanel(img.getThumbnail());
 		thumbnail.setSize(Config.GUI_THUMBNAIL_SIZE);
 		thumbnail.setPreferredSize(Config.GUI_THUMBNAIL_SIZE);

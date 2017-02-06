@@ -1,6 +1,7 @@
 package ic.gui;
 
 import ic.gui.search.SearchPanel;
+import ic.io.FilesystemCrawler;
 import ic.util.Config;
 import ic.util.GUI;
 import ic.util.log.Log;
@@ -81,24 +82,32 @@ public class MainFrame extends JFrame {
 		if (tabPane.getTabCount() > 1)
 			tabPane.setIconAt(tabPane.getTabCount() - 1, Config.ICON_QUEUE);
 
-		if (tabPane.getTabCount() < Config.GUI_TABS_MAX)
-			tabPane.insertTab(
-					"Search",
-					Config.ICON_PROCESSING,
-					new SearchPanel(this, setupPanel.getBaseImage(), path, dir),
+		if (tabPane.getTabCount() < Config.GUI_TABS_MAX) {
+			SearchPanel searchPanel = new SearchPanel(this,
+					setupPanel.getBaseImage(), path, dir);
+			tabPane.insertTab("Search", Config.ICON_PROCESSING, searchPanel,
 					null, 1);
-		else
+
+			tabPane.setSelectedIndex(1);
+			this.validate();
+
+			FilesystemCrawler fc = new FilesystemCrawler(dir,
+					Config.GUI_SEARCH_RECURSIVE);
+			fc.register(this);
+			fc.register(searchPanel);
+			fc.start();
+		} else
 			Log.error("maximum number of tabs reached");
-
-		tabPane.setSelectedIndex(1);
-
-		this.validate();
 	}
 
 	public void setProgress(double value) {
 		statusPanel.setProgress(value);
-		statusPanel.statusText.setText(statusPanel.statusText.getText() + "a");
 		this.repaint();
+	}
+
+	public void updateProgress(String msg, double progress) {
+		statusPanel.setStatus(msg);
+		statusPanel.setProgress(progress);
 	}
 
 	public void closeTab(SearchPanel panel) {

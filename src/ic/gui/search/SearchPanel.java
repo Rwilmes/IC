@@ -156,6 +156,11 @@ public class SearchPanel extends JPanel {
 		}
 	}
 
+	public void addEntry(Image img) {
+		centerPanel.add(new SearchEntry(this, baseImg, img));
+		this.validate();
+	}
+
 	public void addEntry(String path) {
 		try {
 			Image img = new Image(path);

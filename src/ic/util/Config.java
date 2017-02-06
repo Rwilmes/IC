@@ -15,7 +15,7 @@ public class Config {
 	/*
 	 * GUI CONFIG
 	 */
-	public static final int GUI_MIN_WIDTH = 860;
+	public static final int GUI_MIN_WIDTH = 1200;
 	public static final int GUI_MIN_HEIGHT = 560;
 
 	public static final String GUI_IMAGE_DEFAULT_DIR = "data/";
@@ -32,13 +32,15 @@ public class Config {
 	public static final ImageIcon ICON_DONE = IO
 			.readImageIcon("img/done_24x.png");
 
-	public static final int GUI_THUMBNAIL_WIDTH = 75;
-	public static final int GUI_THUMBNAIL_HEIGHT = 75;
+	public static final int GUI_THUMBNAIL_WIDTH = 100;
+	public static final int GUI_THUMBNAIL_HEIGHT = 100;
 	public static final Dimension GUI_THUMBNAIL_SIZE = new Dimension(
 			GUI_THUMBNAIL_WIDTH, GUI_THUMBNAIL_HEIGHT);
 
 	public static final int GUI_SEARCH_ENTRY_PATH_WIDTH = 250;
 
-	public static final int GUI_SEARCH_ENTRY_HASH_WIDTH = 120;
+	public static final int GUI_SEARCH_ENTRY_HASH_WIDTH = 150;
+
+	public static final boolean GUI_SEARCH_RECURSIVE = true;
 
 }
