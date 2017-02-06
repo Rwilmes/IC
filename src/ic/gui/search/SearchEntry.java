@@ -3,6 +3,7 @@ package ic.gui.search;
 import ic.gui.ImagePanel;
 import ic.image.Image;
 import ic.util.Config;
+import ic.util.GUI;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,7 +18,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
 
 public class SearchEntry extends JPanel {
 
@@ -60,7 +60,9 @@ public class SearchEntry extends JPanel {
 		this.add(pathLabel);
 
 		pathField = new JLabel(img.getPath());
-		pathField.setText(img.getPath());
+		pathField.setPreferredSize(new Dimension(
+				Config.GUI_SEARCH_ENTRY_PATH_WIDTH, pathField
+						.getPreferredSize().height));
 		this.add(pathField);
 
 		HashInfoPanel dHashPanel = new HashInfoPanel(baseImg.getDHash(),
@@ -68,11 +70,18 @@ public class SearchEntry extends JPanel {
 		HashInfoPanel pHashPanel = new HashInfoPanel(baseImg.getPHash(),
 				img.getPHash());
 
-		this.add(genSeparator(thumbnail.getPreferredSize().height));
+		pHashPanel.setPreferredSize(new Dimension(
+				Config.GUI_SEARCH_ENTRY_HASH_WIDTH + Config.GUI_THUMBNAIL_WIDTH
+						- 10, pHashPanel.getPreferredSize().height));
+		dHashPanel.setPreferredSize(new Dimension(
+				Config.GUI_SEARCH_ENTRY_HASH_WIDTH + Config.GUI_THUMBNAIL_WIDTH
+						- 10, dHashPanel.getPreferredSize().height));
+
+		this.add(GUI.genVerticalSeparator(thumbnail.getPreferredSize().height));
 		this.add(dHashPanel);
-		this.add(genSeparator(thumbnail.getPreferredSize().height));
+		this.add(GUI.genVerticalSeparator(thumbnail.getPreferredSize().height));
 		this.add(pHashPanel);
-		this.add(genSeparator(thumbnail.getPreferredSize().height));
+		this.add(GUI.genVerticalSeparator(thumbnail.getPreferredSize().height));
 
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
@@ -111,11 +120,4 @@ public class SearchEntry extends JPanel {
 		thisParent.trashEntry(this);
 	}
 
-	private JSeparator genSeparator(int height) {
-		JSeparator separator = new JSeparator(JSeparator.VERTICAL);
-		Dimension d = separator.getPreferredSize();
-		d.height = height;
-		separator.setPreferredSize(d);
-		return separator;
-	}
 }

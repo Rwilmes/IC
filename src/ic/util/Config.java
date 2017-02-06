@@ -15,7 +15,7 @@ public class Config {
 	/*
 	 * GUI CONFIG
 	 */
-	public static final int GUI_MIN_WIDTH = 840;
+	public static final int GUI_MIN_WIDTH = 860;
 	public static final int GUI_MIN_HEIGHT = 560;
 
 	public static final String GUI_IMAGE_DEFAULT_DIR = "data/";
@@ -36,4 +36,9 @@ public class Config {
 	public static final int GUI_THUMBNAIL_HEIGHT = 75;
 	public static final Dimension GUI_THUMBNAIL_SIZE = new Dimension(
 			GUI_THUMBNAIL_WIDTH, GUI_THUMBNAIL_HEIGHT);
+
+	public static final int GUI_SEARCH_ENTRY_PATH_WIDTH = 250;
+
+	public static final int GUI_SEARCH_ENTRY_HASH_WIDTH = 120;
+
 }

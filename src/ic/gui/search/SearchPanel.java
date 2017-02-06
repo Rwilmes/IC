@@ -2,6 +2,8 @@ package ic.gui.search;
 
 import ic.gui.MainFrame;
 import ic.image.Image;
+import ic.util.Config;
+import ic.util.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -45,28 +47,21 @@ public class SearchPanel extends JPanel {
 		thisParent = parent;
 		this.baseImg = baseImg;
 
-		northPanel = new JPanel();
-		northPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-		northPanel.add(new JLabel("Image"));
-		northPanel.add(new JLabel("PHash"));
-		northPanel.add(new JLabel("DHash"));
-		northPanel.add(new JLabel("Path"));
-		northPanel.setBorder(BorderFactory
-				.createEtchedBorder(EtchedBorder.LOWERED));
-
+		// set layout
 		this.setLayout(new BorderLayout());
+
+		// create header
+		northPanel = createHeader();
 		this.add(northPanel, BorderLayout.NORTH);
 
+		// create list
 		centerPanel = new JPanel();
 		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
 
-		// centerPanel.setLayout(new BoxLayout);
-		// this.add(centerPanel, BorderLayout.CENTER);
-
 		JScrollPane scrollPane = new JScrollPane(centerPanel);
-		// scrollPane.setPreferredSize();
 		this.add(scrollPane, BorderLayout.CENTER);
 
+		// create south panel
 		southPanel = new JPanel();
 		southPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		JButton addButton = new JButton("Add");
@@ -112,6 +107,45 @@ public class SearchPanel extends JPanel {
 
 		this.add(southPanel, BorderLayout.SOUTH);
 
+	}
+
+	public JPanel createHeader() {
+		JPanel header = new JPanel();
+		header.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+		JLabel imageHeader = new JLabel("Image");
+		imageHeader.setPreferredSize(new Dimension(Config.GUI_THUMBNAIL_WIDTH,
+				imageHeader.getPreferredSize().height));
+		header.add(imageHeader);
+
+		JLabel pathHeader = new JLabel("Path");
+		pathHeader.setPreferredSize(new Dimension(
+				32 + Config.GUI_SEARCH_ENTRY_PATH_WIDTH, pathHeader
+						.getPreferredSize().height));
+		header.add(pathHeader);
+
+		header.add(GUI.genVerticalSeparator(imageHeader.getPreferredSize().height));
+
+		JLabel dHeader = new JLabel("dHash");
+		dHeader.setPreferredSize(new Dimension(
+				Config.GUI_SEARCH_ENTRY_HASH_WIDTH + Config.GUI_THUMBNAIL_WIDTH
+						- 10, dHeader.getPreferredSize().height));
+
+		header.add(dHeader);
+		header.add(GUI.genVerticalSeparator(imageHeader.getPreferredSize().height));
+
+		JLabel pHeader = new JLabel("pHash");
+		pHeader.setPreferredSize(new Dimension(
+				Config.GUI_SEARCH_ENTRY_HASH_WIDTH + Config.GUI_THUMBNAIL_WIDTH
+						- 10, pHeader.getPreferredSize().height));
+
+		header.add(pHeader);
+
+		header.add(GUI.genVerticalSeparator(imageHeader.getPreferredSize().height));
+
+		header.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+
+		return header;
 	}
 
 	public void ok() {
