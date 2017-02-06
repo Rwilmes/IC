@@ -6,6 +6,7 @@ import ic.metrics.name.PHash;
 import ic.util.Config;
 import ic.util.IO;
 import ic.util.Processing;
+import ic.util.gui.PreviewPane;
 import ic.util.log.Log;
 
 import java.awt.Color;
@@ -194,6 +195,10 @@ public class SetupPanel extends JPanel {
 					Config.GUI_IMAGE_DEFAULT_DIR));
 			imageChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 			imageButton.setEnabled(true);
+
+			PreviewPane previewPane = new PreviewPane();
+			imageChooser.setAccessory(previewPane);
+			imageChooser.addPropertyChangeListener(previewPane);
 		}
 		if (directoryChooser == null) {
 			directoryChooser = new JFileChooser(new File(
