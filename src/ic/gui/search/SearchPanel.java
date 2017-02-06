@@ -93,9 +93,11 @@ public class SearchPanel extends JPanel {
 				if (fileCrawler.isPaused()) {
 					fileCrawler.unpause();
 					pauseButton.setText("Pause");
+					thisParent.setTabRunning(thisPanel);
 				} else {
 					fileCrawler.pause();
 					pauseButton.setText("Continue");
+					thisParent.setTabPaused(thisPanel);
 				}
 				validate();
 			}
@@ -255,6 +257,6 @@ public class SearchPanel extends JPanel {
 	public void setDone() {
 		pauseButton.setEnabled(false);
 		stopButton.setEnabled(false);
-
+		thisParent.setTabDone(this);
 	}
 }

@@ -70,13 +70,6 @@ public class MainFrame extends JFrame {
 	}
 
 	public void search(String path, String dir) {
-		for (int i = 1; i < tabPane.getTabCount() - 1; i++) {
-			tabPane.setIconAt(i, Config.ICON_DONE);
-		}
-
-		if (tabPane.getTabCount() > 1)
-			tabPane.setIconAt(tabPane.getTabCount() - 1, Config.ICON_QUEUE);
-
 		if (tabPane.getTabCount() < Config.GUI_TABS_MAX) {
 			SearchPanel searchPanel = new SearchPanel(this,
 					setupPanel.getBaseImage(), path, dir);
@@ -84,11 +77,12 @@ public class MainFrame extends JFrame {
 			fc.register(this);
 
 			tabPane.insertTab("Search", Config.ICON_PROCESSING, searchPanel,
-					null, 1);
+					null, tabPane.getTabCount());
 
-			tabPane.setSelectedIndex(1);
+			tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
 			this.validate();
 
+			setTabRunning(searchPanel);
 			fc.start();
 		} else
 			Log.error("maximum number of tabs reached");
@@ -100,8 +94,35 @@ public class MainFrame extends JFrame {
 	public void updateProgress(String msg, double progress) {
 	}
 
+	/** Closes the given tab. **/
 	public void closeTab(SearchPanel panel) {
 		tabPane.remove(panel);
 	}
 
+	/** Sets that the search in a tab is done. **/
+	public void setTabDone(SearchPanel panel) {
+		for (int i = 0; i < tabPane.getTabCount(); i++) {
+			if (tabPane.getComponent(i) == panel) {
+				tabPane.setIconAt(i, Config.ICON_DONE);
+			}
+		}
+	}
+
+	/** Sets that a tab is paused. **/
+	public void setTabPaused(SearchPanel panel) {
+		for (int i = 0; i < tabPane.getTabCount(); i++) {
+			if (tabPane.getComponent(i) == panel) {
+				tabPane.setIconAt(i, Config.ICON_QUEUE);
+			}
+		}
+	}
+
+	/** Sets that a tab is running. **/
+	public void setTabRunning(SearchPanel panel) {
+		for (int i = 0; i < tabPane.getTabCount(); i++) {
+			if (tabPane.getComponent(i) == panel) {
+				tabPane.setIconAt(i, Config.ICON_PROCESSING);
+			}
+		}
+	}
 }

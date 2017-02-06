@@ -73,8 +73,6 @@ public class ImageComparison {
 	}
 
 	public static void guiTest() {
-		Log.log("GUI TEST");
-
 		MainFrame x = new MainFrame();
 	}
 

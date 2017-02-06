@@ -6,7 +6,6 @@ import ic.metrics.name.PHash;
 import ic.util.Config;
 import ic.util.IO;
 import ic.util.Processing;
-import ic.util.log.Log;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -202,7 +201,6 @@ public class SetupPanel extends JPanel {
 	}
 
 	public void selectImage(File image) {
-		Log.log("selecting image: " + image.getAbsolutePath());
 		imageText.setText(image.getPath());
 
 		try {
@@ -220,7 +218,6 @@ public class SetupPanel extends JPanel {
 	}
 
 	public void selectDirectory(String dir) {
-		Log.log("selecting directory: " + dir);
 		directoryText.setText(dir);
 		this.validate();
 	}

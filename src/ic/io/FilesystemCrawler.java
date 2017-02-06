@@ -141,7 +141,6 @@ public class FilesystemCrawler implements Runnable {
 			Random random = new Random();
 			this.t = new Thread(this, "FilesystemCrawler-Thread"
 					+ random.nextFloat());
-			Log.log("Starting FilesystemCrawler in new thread: " + t);
 			this.t.start();
 		}
 	}
