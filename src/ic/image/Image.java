@@ -59,6 +59,27 @@ public class Image {
 		}
 	}
 
+	public Image(BufferedImage img, String path, DHash dHash, PHash pHash) {
+		this.path = path;
+		this.thumbnail = Processing.resize(img,
+				(int) Math.floor(Config.GUI_THUMBNAIL_SIZE.getHeight()),
+				(int) Math.floor(Config.GUI_THUMBNAIL_SIZE.getHeight()));
+		this.dHash = dHash;
+		this.pHash = pHash;
+
+		String[] splits = path.split("\\\\");
+		if (splits.length > 1) {
+			this.filename = splits[splits.length - 1];
+			this.dir = "";
+			for (int i = 0; i < splits.length - 1; i++) {
+				this.dir += splits[i] + "\\";
+			}
+		} else {
+			this.dir = "";
+			this.filename = splits[0];
+		}
+	}
+
 	public BufferedImage getThumbnail() {
 		return thumbnail;
 	}

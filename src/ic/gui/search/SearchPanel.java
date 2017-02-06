@@ -8,8 +8,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.io.IOException;
 
 import javax.swing.BorderFactory;
@@ -33,8 +31,12 @@ public class SearchPanel extends JPanel {
 
 	private JPanel dummy;
 
-	public SearchPanel(String imgPath, String dir) {
+	private Image baseImg;
+
+	public SearchPanel(Image baseImg, String imgPath, String dir) {
 		super();
+
+		this.baseImg = baseImg;
 
 		northPanel = new JPanel();
 		northPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -57,8 +59,6 @@ public class SearchPanel extends JPanel {
 		JScrollPane scrollPane = new JScrollPane(centerPanel);
 		// scrollPane.setPreferredSize();
 		this.add(scrollPane, BorderLayout.CENTER);
-
-		
 
 		southPanel = new JPanel();
 		southPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -94,57 +94,33 @@ public class SearchPanel extends JPanel {
 		southPanel.add(new JLabel(dir));
 
 		this.add(southPanel, BorderLayout.SOUTH);
-		
-		
-		
-		centerPanel.addComponentListener(new ComponentListener() {
-			@Override
-			public void componentShown(ComponentEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("shown\t" + arg0.getComponent());
-			}
 
-			@Override
-			public void componentResized(ComponentEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("resized\t" + arg0.getComponent());
-				ok();
-			}
-
-			@Override
-			public void componentMoved(ComponentEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("moved\t" + arg0.getComponent());
-				ok();
-			}
-
-			@Override
-			public void componentHidden(ComponentEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("hidden\t" + arg0.getComponent());
-			}
-		});
 	}
 
 	public void ok() {
-//		for (Component c : centerPanel.getComponents()) {
-//			System.out.println(c);
-//
-//			if (c instanceof SearchEntry) {
-//				((SearchEntry) c).drawImage();
-//			}
-//		}
+		for (Component c : centerPanel.getComponents()) {
+			if (c instanceof SearchEntry) {
+				((SearchEntry) c).setVisible(true);
+			}
+		}
 	}
 
 	public void addEntry(String path) {
 		try {
 			Image img = new Image(path);
-			SearchEntry se = new SearchEntry(img);
+			SearchEntry se = new SearchEntry(this, baseImg, img);
 			centerPanel.add(se);
-//			centerPanel.repaint();
+			// centerPanel.repaint();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		this.validate();
 	}
+
+	public void trashEntry(SearchEntry se) {
+		centerPanel.remove(se);
+		this.revalidate();
+		this.repaint();
+	}
+
 }

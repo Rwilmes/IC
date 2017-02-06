@@ -1,5 +1,8 @@
 package ic.gui;
 
+import ic.image.Image;
+import ic.metrics.name.DHash;
+import ic.metrics.name.PHash;
 import ic.util.Config;
 import ic.util.IO;
 import ic.util.Processing;
@@ -34,6 +37,7 @@ public class SetupPanel extends JPanel {
 	private SetupPanel thisSetupPanel;
 
 	// source image components
+	private Image baseImage;
 	private JPanel imagePanel;
 	private JLabel imageLabel;
 	private JTextField imageText;
@@ -151,6 +155,7 @@ public class SetupPanel extends JPanel {
 
 		searchPanel = new JPanel();
 		searchButton = new JButton("Search");
+		searchButton.setEnabled(false);
 		searchButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -175,7 +180,6 @@ public class SetupPanel extends JPanel {
 	}
 
 	public void initFileChoosers() {
-
 		if (imageChooser == null) {
 			imageChooser = new JFileChooser(new File(
 					Config.GUI_IMAGE_DEFAULT_DIR));
@@ -203,11 +207,11 @@ public class SetupPanel extends JPanel {
 
 		try {
 			BufferedImage img = IO.readImage(image.getAbsolutePath());
+			this.baseImage = new Image(img, image.getPath(),
+					DHash.computeHash(img), PHash.computeHash(img));
 			resizedImage = Processing.resize(img, 300, 300);
 			imagePreview = new ImagePanel(resizedImage);
-			// Graphics g = imagePreview.getGraphics();
-			// g.clearRect(0, 0, 300, 300);
-			// g.drawImage(resizedImage, 0, 0, null);
+			searchButton.setEnabled(true);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -223,6 +227,9 @@ public class SetupPanel extends JPanel {
 
 	public void selectDirectory(File dir) {
 		selectDirectory(dir.getPath());
+	}
 
+	public Image getBaseImage() {
+		return baseImage;
 	}
 }
