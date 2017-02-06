@@ -1,5 +1,6 @@
 package ic.gui.search;
 
+import ic.gui.MainFrame;
 import ic.image.Image;
 
 import java.awt.BorderLayout;
@@ -25,6 +26,9 @@ public class SearchPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private SearchPanel thisPanel;
+	private MainFrame thisParent;
+
 	private JPanel northPanel;
 	private JPanel centerPanel;
 	private JPanel southPanel;
@@ -33,9 +37,12 @@ public class SearchPanel extends JPanel {
 
 	private Image baseImg;
 
-	public SearchPanel(Image baseImg, String imgPath, String dir) {
+	public SearchPanel(MainFrame parent, Image baseImg, String imgPath,
+			String dir) {
 		super();
 
+		thisPanel = this;
+		thisParent = parent;
 		this.baseImg = baseImg;
 
 		northPanel = new JPanel();
@@ -80,6 +87,16 @@ public class SearchPanel extends JPanel {
 		});
 		southPanel.add(okButton);
 
+		JButton closeButton = new JButton("Close");
+		closeButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				thisPanel.close();
+			}
+		});
+
+		southPanel.add(closeButton);
+
 		dummy = new JPanel();
 		dummy.setPreferredSize(new Dimension(20, 10));
 		southPanel.add(dummy);
@@ -110,7 +127,6 @@ public class SearchPanel extends JPanel {
 			Image img = new Image(path);
 			SearchEntry se = new SearchEntry(this, baseImg, img);
 			centerPanel.add(se);
-			// centerPanel.repaint();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -121,6 +137,10 @@ public class SearchPanel extends JPanel {
 		centerPanel.remove(se);
 		this.revalidate();
 		this.repaint();
+	}
+
+	public void close() {
+		thisParent.closeTab(this);
 	}
 
 }

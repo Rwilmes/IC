@@ -82,8 +82,11 @@ public class MainFrame extends JFrame {
 			tabPane.setIconAt(tabPane.getTabCount() - 1, Config.ICON_QUEUE);
 
 		if (tabPane.getTabCount() < Config.GUI_TABS_MAX)
-			tabPane.insertTab("Search", Config.ICON_PROCESSING,
-					new SearchPanel(setupPanel.getBaseImage(), path, dir), null, 1);
+			tabPane.insertTab(
+					"Search",
+					Config.ICON_PROCESSING,
+					new SearchPanel(this, setupPanel.getBaseImage(), path, dir),
+					null, 1);
 		else
 			Log.error("maximum number of tabs reached");
 
@@ -97,7 +100,9 @@ public class MainFrame extends JFrame {
 		statusPanel.statusText.setText(statusPanel.statusText.getText() + "a");
 		this.repaint();
 	}
-	
 
+	public void closeTab(SearchPanel panel) {
+		tabPane.remove(panel);
+	}
 
 }
