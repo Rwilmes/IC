@@ -16,7 +16,7 @@ public class Config {
 	 * GUI CONFIG
 	 */
 	public static final int GUI_MIN_WIDTH = 1200;
-	public static final int GUI_MIN_HEIGHT = 560;
+	public static final int GUI_MIN_HEIGHT = 800;
 
 	public static final String GUI_IMAGE_DEFAULT_DIR = "data/";
 	public static final String GUI_DIRECTORY_DEFAULT_DIR = "data/images/";

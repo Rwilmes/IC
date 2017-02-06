@@ -44,7 +44,7 @@ public class SearchEntry extends JPanel {
 		this.thisParent = thisParent;
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 		this.img = img;
-		
+
 		thumbnail = new ImagePanel(img.getThumbnail());
 		thumbnail.setSize(Config.GUI_THUMBNAIL_SIZE);
 		thumbnail.setPreferredSize(Config.GUI_THUMBNAIL_SIZE);
@@ -102,7 +102,6 @@ public class SearchEntry extends JPanel {
 		trashButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println(pathLabel.getSize());
 				thisEntry.trash();
 			}
 		});
