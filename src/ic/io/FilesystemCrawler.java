@@ -72,7 +72,9 @@ public class FilesystemCrawler implements Runnable {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			broadcastProgress("processing images", 1.0 * i / total);
+
+			if (i % 10 == 0)
+				broadcastProgress("processing images", 1.0 * i / total);
 		}
 
 		broadcastProgress("done!", 1.0);
@@ -91,6 +93,9 @@ public class FilesystemCrawler implements Runnable {
 		for (Component c : this.registeredComponents) {
 			if (c instanceof MainFrame) {
 				((MainFrame) c).updateProgress(msg, progress);
+			}
+			if (c instanceof SearchPanel) {
+				((SearchPanel) c).updateProgress(msg, progress);
 			}
 		}
 	}

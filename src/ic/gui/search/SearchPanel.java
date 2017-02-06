@@ -18,6 +18,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.border.EtchedBorder;
 
@@ -38,6 +39,9 @@ public class SearchPanel extends JPanel {
 	private JPanel dummy;
 
 	private Image baseImg;
+
+	private JLabel progressLabel;
+	private JProgressBar progressBar;
 
 	public SearchPanel(MainFrame parent, Image baseImg, String imgPath,
 			String dir) {
@@ -104,6 +108,18 @@ public class SearchPanel extends JPanel {
 
 		southPanel.add(new JLabel("Directory: "));
 		southPanel.add(new JLabel(dir));
+
+		progressLabel = new JLabel("Idle");
+		progressLabel.setHorizontalAlignment(JLabel.RIGHT);
+		progressLabel.setPreferredSize(new Dimension(350, progressLabel
+				.getPreferredSize().height));
+		southPanel.add(progressLabel);
+
+		progressBar = new JProgressBar(0, 100);
+		progressBar.setString("");
+		progressBar.setStringPainted(true);
+
+		southPanel.add(progressBar);
 
 		this.add(southPanel, BorderLayout.SOUTH);
 
@@ -196,6 +212,14 @@ public class SearchPanel extends JPanel {
 
 	public void close() {
 		thisParent.closeTab(this);
+	}
+
+	public void updateProgress(String msg, double progress) {
+		progressLabel.setText(msg);
+		int v = (int) Math.floor(progress * 100);
+		progressBar.setValue(v);
+		progressBar.setString("" + v + " %");
+		progressBar.setStringPainted(true);
 	}
 
 }
