@@ -21,6 +21,9 @@ public class Config {
 	public static final String GUI_IMAGE_DEFAULT_DIR = "data/";
 	public static final String GUI_DIRECTORY_DEFAULT_DIR = "data/images/";
 
+	public static final Dimension GUI_PREVIEW_IMAGE_SIZE = new Dimension(300,
+			300);
+
 	public static final int GUI_TABS_MAX = 20;
 
 	public static final ImageIcon ICON_SETTINGS = IO

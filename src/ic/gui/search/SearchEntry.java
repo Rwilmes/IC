@@ -19,6 +19,12 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * A search entry represenets a single search result in the searchpanel.
+ * 
+ * @author Rwilmes
+ * 
+ */
 public class SearchEntry extends JPanel {
 
 	/**
@@ -38,9 +44,7 @@ public class SearchEntry extends JPanel {
 	private JLabel pathField;
 
 	public SearchEntry(SearchPanel thisParent, Image baseImg, Image img) {
-		super();
-
-		thisEntry = this;
+		this.thisEntry = this;
 		this.thisParent = thisParent;
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 		this.img = img;
@@ -109,9 +113,9 @@ public class SearchEntry extends JPanel {
 		buttonPanel.add(trashButton);
 
 		this.add(buttonPanel);
-
 	}
 
+	/** Trashes this entry. **/
 	public void trash() {
 		thisParent.trashEntry(this);
 	}

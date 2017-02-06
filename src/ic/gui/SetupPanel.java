@@ -100,15 +100,20 @@ public class SetupPanel extends JPanel {
 		imagePanel.add(imageLabel);
 		imagePanel.add(imageText);
 		imagePanel.add(imageButton);
+		this.add(imagePanel);
 
 		// init preview
-		imagePreview = new ImagePanel(null);
-		imagePreview.setBackground(Color.gray);
-		imagePreview.setMinimumSize(new Dimension(300, 300));
-		imagePreview.setMaximumSize(new Dimension(300, 300));
+		JPanel imagePreviewPanel = new JPanel();
+		imagePreviewPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-		this.add(imagePanel);
-		this.add(imagePreview);
+		imagePreview = new ImagePanel(null);
+		imagePreview.setBackground(Color.LIGHT_GRAY);
+		imagePreview.setSize(Config.GUI_PREVIEW_IMAGE_SIZE);
+		imagePreview.setPreferredSize(Config.GUI_PREVIEW_IMAGE_SIZE);
+		imagePreview.setMinimumSize(Config.GUI_PREVIEW_IMAGE_SIZE);
+		imagePreview.setMaximumSize(Config.GUI_PREVIEW_IMAGE_SIZE);
+		imagePreviewPanel.add(imagePreview);
+		this.add(imagePreviewPanel);
 
 		// setup directory components
 		directoryLabel = new JLabel("Directory:");
@@ -153,8 +158,10 @@ public class SetupPanel extends JPanel {
 		this.add(directoryPanel);
 
 		searchPanel = new JPanel();
+		searchPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		searchButton = new JButton("Search");
 		searchButton.setEnabled(false);
+		searchButton.setPreferredSize(new Dimension(65, 35));
 		searchButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -174,7 +181,7 @@ public class SetupPanel extends JPanel {
 									// glue
 									// greedy
 				glue.getMaximumSize());
-		this.add(glue);
+//		this.add(glue);
 
 	}
 
@@ -207,14 +214,18 @@ public class SetupPanel extends JPanel {
 			BufferedImage img = IO.readImage(image.getAbsolutePath());
 			this.baseImage = new Image(img, image.getPath(),
 					DHash.computeHash(img), PHash.computeHash(img));
-			resizedImage = Processing.resize(img, 300, 300);
-			imagePreview = new ImagePanel(resizedImage);
+			resizedImage = Processing.resize(img,
+					Config.GUI_PREVIEW_IMAGE_SIZE.width,
+					Config.GUI_PREVIEW_IMAGE_SIZE.height);
+			imagePreview.setImage(resizedImage);
+
 			searchButton.setEnabled(true);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		this.validate();
+		revalidate();
+		repaint();
 	}
 
 	public void selectDirectory(String dir) {

@@ -19,7 +19,7 @@ public class ImagePanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private final BufferedImage img;
+	private BufferedImage img;
 
 	public ImagePanel(BufferedImage img) {
 		this.img = img;
@@ -29,6 +29,10 @@ public class ImagePanel extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(img, 0, 0, null);
+	}
+
+	public void setImage(BufferedImage img) {
+		this.img = img;
 	}
 
 }
