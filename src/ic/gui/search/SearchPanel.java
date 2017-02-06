@@ -139,7 +139,7 @@ public class SearchPanel extends JPanel {
 
 		progressLabel = new JLabel("Idle");
 		progressLabel.setHorizontalAlignment(JLabel.RIGHT);
-		progressLabel.setPreferredSize(new Dimension(300, progressLabel
+		progressLabel.setPreferredSize(new Dimension(200, progressLabel
 				.getPreferredSize().height));
 		southPanel.add(progressLabel);
 

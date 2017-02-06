@@ -70,6 +70,11 @@ public class ImageComparison {
 
 		guiTest();
 
+		// String hash = "2dbdefe2c2101687";
+		//
+		// BufferedImage blub = Processing.getImageFromHash(new PHash(hash));
+		// IO.writeImage(blub, "data/ok.png");
+
 	}
 
 	public static void guiTest() {

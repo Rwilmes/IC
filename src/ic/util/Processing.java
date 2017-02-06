@@ -1,13 +1,17 @@
 package ic.util;
 
+import ic.metrics.hashes.ImageHash;
 import ic.util.Timer.TimerType;
 import ic.util.log.Log;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+import java.awt.image.Raster;
 
 /**
  * A class containing basic image processing methods.
@@ -121,5 +125,21 @@ public class Processing {
 
 		// return
 		return image;
+	}
+
+	/** Computes an image representing the given hash. **/
+	public static BufferedImage getImageFromHash(ImageHash hash) {
+		int dimension = (int) Math.sqrt(hash.getHash().length());
+		BufferedImage img = new BufferedImage(dimension, dimension,
+				BufferedImage.TYPE_BYTE_GRAY);
+		
+		byte[] data = hash.getHash().getBytes();
+		
+		img.setData(Raster.createRaster(img.getSampleModel(), new DataBufferByte(data, data.length), new Point() ) );
+//		System.out.println("1: " + hash.getHash().getBytes().length);
+//		System.out.println(((DataBufferByte) img.getData().getDataBuffer())
+//				.getData().length);
+
+		return img;
 	}
 }
