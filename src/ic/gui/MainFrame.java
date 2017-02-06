@@ -26,7 +26,6 @@ public class MainFrame extends JFrame {
 	private JPanel mainPanel;
 	private JTabbedPane tabPane;
 	private SetupPanel setupPanel;
-	private StatusPanel statusPanel;
 
 	public MainFrame() {
 		this(new Dimension(Config.GUI_MIN_WIDTH, Config.GUI_MIN_HEIGHT),
@@ -68,10 +67,6 @@ public class MainFrame extends JFrame {
 				0);
 
 		mainPanel.add(tabPane, BorderLayout.CENTER);
-
-		// init status panel
-		statusPanel = new StatusPanel();
-		mainPanel.add(statusPanel, BorderLayout.SOUTH);
 	}
 
 	public void search(String path, String dir) {
@@ -100,13 +95,9 @@ public class MainFrame extends JFrame {
 	}
 
 	public void setProgress(double value) {
-		statusPanel.setProgress(value);
-		this.repaint();
 	}
 
 	public void updateProgress(String msg, double progress) {
-		statusPanel.setStatus(msg);
-		statusPanel.setProgress(progress);
 	}
 
 	public void closeTab(SearchPanel panel) {
