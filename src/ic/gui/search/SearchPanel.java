@@ -157,19 +157,35 @@ public class SearchPanel extends JPanel {
 	}
 
 	public void addEntry(Image img) {
-		centerPanel.add(new SearchEntry(this, baseImg, img));
-		this.validate();
+		if (valid(baseImg, img)) {
+			centerPanel.add(new SearchEntry(this, baseImg, img));
+
+			this.validate();
+		}
 	}
 
 	public void addEntry(String path) {
 		try {
 			Image img = new Image(path);
 			SearchEntry se = new SearchEntry(this, baseImg, img);
-			centerPanel.add(se);
+
+			if (valid(baseImg, img))
+				centerPanel.add(se);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		this.validate();
+	}
+
+	public boolean valid(Image baseImg, Image img) {
+		// first check dHash
+		if (baseImg.getDHash().compareTo(img.getDHash()) <= Config.GUI_FILTER_DHASH_DISTANCE_THRESHOLD)
+			return true;
+
+		if (baseImg.getPHash().compareTo(img.getPHash()) <= Config.GUI_FILTER_PHASH_DISTANCE_THRESHOLD)
+			return true;
+
+		return false;
 	}
 
 	public void trashEntry(SearchEntry se) {
