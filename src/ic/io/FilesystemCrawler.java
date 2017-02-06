@@ -24,6 +24,9 @@ public class FilesystemCrawler implements Runnable {
 
 	private Thread t;
 
+	private boolean paused;
+	private boolean stopped;
+
 	private String dir;
 	private boolean recursive;
 
@@ -32,6 +35,8 @@ public class FilesystemCrawler implements Runnable {
 	public FilesystemCrawler(String dir, boolean recursive) {
 		this.dir = dir;
 		this.recursive = recursive;
+		this.paused = false;
+		this.stopped = false;
 		this.registeredComponents = new ArrayList<Component>();
 	}
 
@@ -73,8 +78,23 @@ public class FilesystemCrawler implements Runnable {
 				e.printStackTrace();
 			}
 
-			if (i % 10 == 0)
-				broadcastProgress("processing images", 1.0 * i / total);
+			try {
+				synchronized (this) {
+					while (this.paused) {
+						broadcastProgress("paused", 1.0 * i / total);
+						wait();
+					}
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+			broadcastProgress("processing images", 1.0 * i / total);
+
+			synchronized (this) {
+				if (this.stopped)
+					break;
+			}
 		}
 
 		broadcastProgress("done!", 1.0);
@@ -83,24 +103,28 @@ public class FilesystemCrawler implements Runnable {
 	/** Broadcasts the image to all registered components. **/
 	private void broadcastImage(Image img) {
 		for (Component c : this.registeredComponents) {
-			if (c instanceof SearchPanel) {
-				((SearchPanel) c).addEntry(img);
+			if (c != null) {
+				if (c instanceof SearchPanel) {
+					((SearchPanel) c).addEntry(img);
+				}
 			}
 		}
 	}
 
 	private void broadcastProgress(String msg, double progress) {
 		for (Component c : this.registeredComponents) {
-			if (c instanceof MainFrame) {
-				((MainFrame) c).updateProgress(msg, progress);
-			}
-			if (c instanceof SearchPanel) {
-				((SearchPanel) c).updateProgress(msg, progress);
+			if (c != null) {
+				if (c instanceof MainFrame) {
+					((MainFrame) c).updateProgress(msg, progress);
+				}
+				if (c instanceof SearchPanel) {
+					((SearchPanel) c).updateProgress(msg, progress);
+				}
 			}
 		}
 	}
 
-	/** starts the batchhandler **/
+	/** starts the filecrawler **/
 	public void start() {
 		if (this.t == null) {
 			Random random = new Random();
@@ -109,6 +133,28 @@ public class FilesystemCrawler implements Runnable {
 			Log.log("Starting FilesystemCrawler in new thread: " + t);
 			this.t.start();
 		}
+	}
+
+	/** Pauses the filecrawler **/
+	public synchronized void pause() {
+		this.paused = true;
+	}
+
+	/** Unpauses the filecrawler **/
+	public synchronized void unpause() {
+		this.paused = false;
+		notify();
+	}
+
+	/** Stops the filecrawler **/
+	public void stop() {
+		this.stopped = true;
+		this.t = null;
+	}
+
+	/** Returns if the filecrawler is paused or not **/
+	public boolean isPaused() {
+		return this.paused;
 	}
 
 }

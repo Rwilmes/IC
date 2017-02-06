@@ -2,6 +2,7 @@ package ic.gui.search;
 
 import ic.gui.MainFrame;
 import ic.image.Image;
+import ic.io.FilesystemCrawler;
 import ic.util.Config;
 import ic.util.GUI;
 
@@ -40,8 +41,12 @@ public class SearchPanel extends JPanel {
 
 	private Image baseImg;
 
+	private JButton pauseButton;
+
 	private JLabel progressLabel;
 	private JProgressBar progressBar;
+
+	private FilesystemCrawler fileCrawler;
 
 	public SearchPanel(MainFrame parent, Image baseImg, String imgPath,
 			String dir) {
@@ -50,6 +55,9 @@ public class SearchPanel extends JPanel {
 		thisPanel = this;
 		thisParent = parent;
 		this.baseImg = baseImg;
+
+		fileCrawler = new FilesystemCrawler(dir, Config.GUI_SEARCH_RECURSIVE);
+		fileCrawler.register(this);
 
 		// set layout
 		this.setLayout(new BorderLayout());
@@ -68,32 +76,44 @@ public class SearchPanel extends JPanel {
 		// create south panel
 		southPanel = new JPanel();
 		southPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-		JButton addButton = new JButton("Add");
-		addButton.addActionListener(new ActionListener() {
+		pauseButton = new JButton("Continue");
+		Dimension d = new Dimension(pauseButton.getPreferredSize().width,
+				pauseButton.getPreferredSize().height);
+		pauseButton.setText("Pause");
+		pauseButton.setPreferredSize(d);
+		pauseButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				addEntry("data/Alyson_Hannigan_200512.jpg");
+				if (fileCrawler.isPaused()) {
+					fileCrawler.unpause();
+					pauseButton.setText("Pause");
+				} else {
+					fileCrawler.pause();
+					pauseButton.setText("Continue");
+				}
+				validate();
 			}
 		});
-		southPanel.add(addButton);
+		southPanel.add(pauseButton);
 
-		JButton okButton = new JButton("Ok");
-		okButton.addActionListener(new ActionListener() {
+		JButton stopButton = new JButton("Stop");
+		stopButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				ok();
+				pauseButton.setEnabled(false);
+				fileCrawler.stop();
 			}
 		});
-		southPanel.add(okButton);
+		southPanel.add(stopButton);
 
 		JButton closeButton = new JButton("Close");
 		closeButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				fileCrawler.stop();
 				thisPanel.close();
 			}
 		});
-
 		southPanel.add(closeButton);
 
 		dummy = new JPanel();
@@ -111,7 +131,7 @@ public class SearchPanel extends JPanel {
 
 		progressLabel = new JLabel("Idle");
 		progressLabel.setHorizontalAlignment(JLabel.RIGHT);
-		progressLabel.setPreferredSize(new Dimension(350, progressLabel
+		progressLabel.setPreferredSize(new Dimension(300, progressLabel
 				.getPreferredSize().height));
 		southPanel.add(progressLabel);
 
@@ -222,4 +242,7 @@ public class SearchPanel extends JPanel {
 		progressBar.setStringPainted(true);
 	}
 
+	public FilesystemCrawler getFilesystemCrawler() {
+		return fileCrawler;
+	}
 }

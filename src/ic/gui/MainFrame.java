@@ -85,16 +85,15 @@ public class MainFrame extends JFrame {
 		if (tabPane.getTabCount() < Config.GUI_TABS_MAX) {
 			SearchPanel searchPanel = new SearchPanel(this,
 					setupPanel.getBaseImage(), path, dir);
+			FilesystemCrawler fc = searchPanel.getFilesystemCrawler();
+			fc.register(this);
+
 			tabPane.insertTab("Search", Config.ICON_PROCESSING, searchPanel,
 					null, 1);
 
 			tabPane.setSelectedIndex(1);
 			this.validate();
 
-			FilesystemCrawler fc = new FilesystemCrawler(dir,
-					Config.GUI_SEARCH_RECURSIVE);
-			fc.register(this);
-			fc.register(searchPanel);
 			fc.start();
 		} else
 			Log.error("maximum number of tabs reached");
