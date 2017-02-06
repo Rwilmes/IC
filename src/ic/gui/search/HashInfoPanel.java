@@ -18,18 +18,17 @@ public class HashInfoPanel extends JPanel {
 		JPanel textPanel = new JPanel();
 		textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
 
-		JLabel distanceLabel = new JLabel("distance = " + hash.compareTo(baseHash));
+		JLabel distanceLabel = new JLabel("distance = "
+				+ hash.compareTo(baseHash));
 		JLabel hashLabel = new JLabel(hash.getHash());
 
 		JPanel imagePanel = new JPanel();
-		imagePanel.setPreferredSize(new Dimension(Config.GUI_THUMBNAIL_WIDTH - 10,
-				Config.GUI_THUMBNAIL_HEIGHT - 10));
+		imagePanel.setPreferredSize(Config.GUI_SEARCH_ENTRY_HASH_IMAGE_SIZE);
 		imagePanel.setBackground(Color.gray);
 
-		
-//		System.out.println(hashLabel.getPreferredSize().width);
-		hashLabel.setPreferredSize(new Dimension(120, hashLabel.getPreferredSize().height));
-		
+		hashLabel.setPreferredSize(new Dimension(120, hashLabel
+				.getPreferredSize().height));
+
 		textPanel.add(distanceLabel);
 		textPanel.add(hashLabel);
 		this.add(textPanel);

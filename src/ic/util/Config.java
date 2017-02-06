@@ -41,8 +41,13 @@ public class Config {
 			GUI_THUMBNAIL_WIDTH, GUI_THUMBNAIL_HEIGHT);
 
 	public static final int GUI_SEARCH_ENTRY_PATH_WIDTH = 250;
-
 	public static final int GUI_SEARCH_ENTRY_HASH_WIDTH = 150;
+
+	public static final int GUI_SEARCH_ENTRY_HASH_IMAGE_WIDTH = 50;
+	public static final int GUI_SEARCH_ENTRY_HASH_IMAGE_HEIGHT = 50;
+	public static final Dimension GUI_SEARCH_ENTRY_HASH_IMAGE_SIZE = new Dimension(
+			GUI_SEARCH_ENTRY_HASH_IMAGE_WIDTH,
+			GUI_SEARCH_ENTRY_HASH_IMAGE_HEIGHT);
 
 	public static final boolean GUI_SEARCH_RECURSIVE = true;
 
