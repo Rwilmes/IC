@@ -69,6 +69,7 @@ public class FilesystemCrawler implements Runnable {
 
 		for (int i = 0; i < fileList.size(); i++) {
 			try {
+				// check if file format is supported
 				Image img = new Image(fileList.get(i).getPath());
 				broadcastImage(img);
 			} catch (IOException e) {
