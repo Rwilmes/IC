@@ -96,6 +96,7 @@ public class FilesystemCrawler implements Runnable {
 		}
 
 		broadcastProgress("done!", 1.0);
+		broadcastDone();
 	}
 
 	/** Broadcasts the image to all registered components. **/
@@ -104,6 +105,17 @@ public class FilesystemCrawler implements Runnable {
 			if (c != null) {
 				if (c instanceof SearchPanel) {
 					((SearchPanel) c).addEntry(img);
+				}
+			}
+		}
+	}
+
+	/** Broadcasts to all components that it is done. **/
+	private void broadcastDone() {
+		for (Component c : this.registeredComponents) {
+			if (c != null) {
+				if (c instanceof SearchPanel) {
+					((SearchPanel) c).setDone();
 				}
 			}
 		}

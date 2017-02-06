@@ -47,6 +47,7 @@ public class SearchPanel extends JPanel {
 	private Image baseImg;
 
 	private JButton pauseButton;
+	private JButton stopButton;
 
 	private JLabel progressLabel;
 	private JProgressBar progressBar;
@@ -101,7 +102,7 @@ public class SearchPanel extends JPanel {
 		});
 		southPanel.add(pauseButton);
 
-		JButton stopButton = new JButton("Stop");
+		stopButton = new JButton("Stop");
 		stopButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -248,5 +249,12 @@ public class SearchPanel extends JPanel {
 	/** Returns the filesystem crawler. **/
 	public FilesystemCrawler getFilesystemCrawler() {
 		return fileCrawler;
+	}
+
+	/** Sets that the search is done. **/
+	public void setDone() {
+		pauseButton.setEnabled(false);
+		stopButton.setEnabled(false);
+
 	}
 }
