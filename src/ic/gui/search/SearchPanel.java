@@ -7,7 +7,6 @@ import ic.util.Config;
 import ic.util.GUI;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -23,6 +22,12 @@ import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.border.EtchedBorder;
 
+/**
+ * Represents a JPanel which fills a search tab of the main frame.
+ * 
+ * @author Rwilmes
+ * 
+ */
 public class SearchPanel extends JPanel {
 
 	/**
@@ -142,9 +147,9 @@ public class SearchPanel extends JPanel {
 		southPanel.add(progressBar);
 
 		this.add(southPanel, BorderLayout.SOUTH);
-
 	}
 
+	/** Creates the header panel. **/
 	public JPanel createHeader() {
 		JPanel header = new JPanel();
 		header.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -184,14 +189,7 @@ public class SearchPanel extends JPanel {
 		return header;
 	}
 
-	public void ok() {
-		for (Component c : centerPanel.getComponents()) {
-			if (c instanceof SearchEntry) {
-				((SearchEntry) c).setVisible(true);
-			}
-		}
-	}
-
+	/** Adds an entry. **/
 	public void addEntry(Image img) {
 		if (valid(baseImg, img)) {
 			centerPanel.add(new SearchEntry(this, baseImg, img));
@@ -200,6 +198,7 @@ public class SearchPanel extends JPanel {
 		}
 	}
 
+	/** Adds an entry. **/
 	public void addEntry(String path) {
 		try {
 			Image img = new Image(path);
@@ -213,6 +212,7 @@ public class SearchPanel extends JPanel {
 		this.validate();
 	}
 
+	/** Checks whether the image is close enough to the original. **/
 	public boolean valid(Image baseImg, Image img) {
 		// first check dHash
 		if (baseImg.getDHash().compareTo(img.getDHash()) <= Config.GUI_FILTER_DHASH_DISTANCE_THRESHOLD)
@@ -224,16 +224,19 @@ public class SearchPanel extends JPanel {
 		return false;
 	}
 
+	/** Trashes an entry. **/
 	public void trashEntry(SearchEntry se) {
 		centerPanel.remove(se);
 		this.revalidate();
 		this.repaint();
 	}
 
+	/** Closes this tab. **/
 	public void close() {
 		thisParent.closeTab(this);
 	}
 
+	/** Updates the progress. **/
 	public void updateProgress(String msg, double progress) {
 		progressLabel.setText(msg);
 		int v = (int) Math.floor(progress * 100);
@@ -242,6 +245,7 @@ public class SearchPanel extends JPanel {
 		progressBar.setStringPainted(true);
 	}
 
+	/** Returns the filesystem crawler. **/
 	public FilesystemCrawler getFilesystemCrawler() {
 		return fileCrawler;
 	}

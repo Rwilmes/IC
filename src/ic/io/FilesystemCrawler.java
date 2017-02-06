@@ -52,7 +52,6 @@ public class FilesystemCrawler implements Runnable {
 
 	@Override
 	public void run() {
-
 		File baseDir = new File(dir);
 
 		if (!baseDir.exists() || !baseDir.isDirectory()) {
@@ -61,11 +60,9 @@ public class FilesystemCrawler implements Runnable {
 			return;
 		}
 
-		Log.log("crawling dir: '" + dir + "'");
-		broadcastProgress("crawling filesystem", 0.0);
+		broadcastProgress("gathering file list", 0.0);
 
 		ArrayList<File> fileList = new ArrayList<File>();
-
 		IO.collectFiles(baseDir, fileList, recursive);
 
 		int total = fileList.size();
@@ -111,6 +108,7 @@ public class FilesystemCrawler implements Runnable {
 		}
 	}
 
+	/** Broadcasts the progress to all registered components. **/
 	private void broadcastProgress(String msg, double progress) {
 		for (Component c : this.registeredComponents) {
 			if (c != null) {
