@@ -5,6 +5,7 @@ import ic.image.Image;
 import ic.io.FilesystemCrawler;
 import ic.util.Config;
 import ic.util.GUI;
+import ic.util.IO;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -128,14 +129,21 @@ public class SearchPanel extends JPanel {
 		dummy.setPreferredSize(new Dimension(20, 10));
 		southPanel.add(dummy);
 		southPanel.add(new JLabel("Image: "));
-		southPanel.add(new JLabel(imgPath));
+
+		JLabel imgLabel = new JLabel(IO.getFilename(imgPath));
+		imgLabel.setToolTipText(imgPath);
+		southPanel.add(imgLabel);
 
 		JPanel dummy2 = new JPanel();
 		dummy2.setPreferredSize(new Dimension(20, 10));
 		southPanel.add(dummy2);
-
+		
 		southPanel.add(new JLabel("Directory: "));
-		southPanel.add(new JLabel(dir));
+		JLabel dirLabel = new JLabel(dir);
+		dirLabel.setPreferredSize(new Dimension(250, dirLabel
+				.getPreferredSize().height));
+		dirLabel.setToolTipText(dir);
+		southPanel.add(dirLabel);
 
 		progressLabel = new JLabel("Idle");
 		progressLabel.setHorizontalAlignment(JLabel.RIGHT);
