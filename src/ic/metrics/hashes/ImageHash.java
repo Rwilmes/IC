@@ -1,7 +1,5 @@
 package ic.metrics.hashes;
 
-import java.awt.image.BufferedImage;
-
 /**
  * Abstract class for hash objects over images. Each ImageHash holds a String,
  * which represents the actual hash value.
