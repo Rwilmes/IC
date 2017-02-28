@@ -4,14 +4,12 @@ import ic.metrics.hashes.ImageHash;
 import ic.util.Timer.TimerType;
 import ic.util.log.Log;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.awt.image.Raster;
 
 /**
  * A class containing basic image processing methods.
@@ -20,6 +18,9 @@ import java.awt.image.Raster;
  * 
  */
 public class Processing {
+
+	public static final int white = Color.WHITE.getRGB();
+	public static final int black = Color.BLACK.getRGB();
 
 	/** Resizes (stretches) an image to the given size. **/
 	public static BufferedImage resize(BufferedImage i, int width, int height) {
@@ -129,17 +130,47 @@ public class Processing {
 
 	/** Computes an image representing the given hash. **/
 	public static BufferedImage getImageFromHash(ImageHash hash) {
-		int dimension = (int) Math.sqrt(hash.getHash().length());
-		BufferedImage img = new BufferedImage(dimension, dimension,
-				BufferedImage.TYPE_BYTE_GRAY);
-		
-		byte[] data = hash.getHash().getBytes();
-		
-		img.setData(Raster.createRaster(img.getSampleModel(), new DataBufferByte(data, data.length), new Point() ) );
-//		System.out.println("1: " + hash.getHash().getBytes().length);
-//		System.out.println(((DataBufferByte) img.getData().getDataBuffer())
-//				.getData().length);
+		String h = hash.getHash();
 
+		int length = h.length();
+		int pixelsPerCharacter = 4;
+		int dimension = (int) Math.sqrt(length * pixelsPerCharacter);
+
+		// init buffered image
+		BufferedImage img = new BufferedImage(dimension, dimension,
+				BufferedImage.TYPE_BYTE_BINARY);
+
+		// iterate over hash string
+		for (int i = 0; i < h.length(); i++) {
+			// parse char to binary
+			int v = Integer.parseInt(h.substring(i, i + 1), 16);
+			String bin = Integer.toBinaryString(v);
+
+			// add padding
+			while (bin.length() < 4)
+				bin = "0" + bin;
+
+			// compute y-position
+			int yPos = i / 2;
+
+			// x-position base
+			int xPosBase = 0;
+			if (i % 2 != 0)
+				xPosBase = 4;
+
+			for (int j = 0; j < 4; j++) {
+				// compute x-position
+				int xPos = xPosBase + j;
+
+				// set white if 1, else set black
+				if (bin.charAt(j) == '1')
+					img.setRGB(xPos, yPos, white);
+				else
+					img.setRGB(xPos, yPos, black);
+			}
+		}
+
+		// return
 		return img;
 	}
 }
