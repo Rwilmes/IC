@@ -71,7 +71,7 @@ public class DCT {
 	/**
 	 * DCT Block Size - default 8
 	 */
-	public int N = 8;
+	public int N = 32;
 
 	/**
 	 * Image Quality (0-25) - default 25 (worst image / best compression)

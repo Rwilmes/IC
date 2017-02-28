@@ -96,4 +96,14 @@ public class Utils {
 		return temp[temp.length / 2];
 	}
 
+	/** Compute the average over the given array. **/
+	public static double computeAverage(int[] array) {
+		int sum = 0;
+		for (int i : array)
+			sum += i;
+
+		return 1.0 * sum / array.length;
+
+	}
+
 }

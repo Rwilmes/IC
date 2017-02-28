@@ -1,7 +1,7 @@
 package ic.image;
 
 import ic.metrics.hashes.perceptual.DHash;
-import ic.metrics.hashes.perceptual.PHash;
+import ic.metrics.hashes.perceptual.PHash32;
 import ic.util.Config;
 import ic.util.IO;
 import ic.util.Processing;
@@ -24,11 +24,11 @@ public class Image {
 	protected String dir;
 
 	protected DHash dHash;
-	protected PHash pHash;
+	protected PHash32 pHash;
 
 	protected BufferedImage thumbnail;
 
-	public Image(String dir, String filename, DHash dHash, PHash pHash) {
+	public Image(String dir, String filename, DHash dHash, PHash32 pHash) {
 		this.dir = dir;
 		this.filename = filename;
 		this.path = dir + filename;
@@ -44,7 +44,7 @@ public class Image {
 				(int) Math.floor(Config.GUI_THUMBNAIL_SIZE.getHeight()));
 
 		this.dHash = DHash.computeHash(img);
-		this.pHash = PHash.computeHash(img);
+		this.pHash = PHash32.computeHash(img);
 
 		String[] splits = path.split("\\\\");
 		if (splits.length > 1) {
@@ -59,7 +59,7 @@ public class Image {
 		}
 	}
 
-	public Image(BufferedImage img, String path, DHash dHash, PHash pHash) {
+	public Image(BufferedImage img, String path, DHash dHash, PHash32 pHash) {
 		this.path = path;
 		this.thumbnail = Processing.resize(img,
 				(int) Math.floor(Config.GUI_THUMBNAIL_SIZE.getHeight()),
@@ -100,7 +100,7 @@ public class Image {
 		return dHash;
 	}
 
-	public PHash getPHash() {
+	public PHash32 getPHash() {
 		return pHash;
 	}
 }
