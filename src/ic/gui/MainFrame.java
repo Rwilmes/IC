@@ -13,7 +13,19 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+/**
+ * The MainFrame is the outer JFrame in which the GUI is embedded.
+ * 
+ * @author Rwilmes
+ * 
+ */
 public class MainFrame extends JFrame {
+
+	/** Main method used to open a MainFrame. **/
+	public static void main(String[] args) {
+		// init MainFrame
+		MainFrame frame = new MainFrame();
+	}
 
 	/**
 	 * 
@@ -27,6 +39,7 @@ public class MainFrame extends JFrame {
 	private JTabbedPane tabPane;
 	private SetupPanel setupPanel;
 
+	// constructors
 	public MainFrame() {
 		this(new Dimension(Config.GUI_MIN_WIDTH, Config.GUI_MIN_HEIGHT),
 				new Dimension(Config.GUI_MIN_WIDTH, Config.GUI_MIN_HEIGHT));
@@ -41,6 +54,7 @@ public class MainFrame extends JFrame {
 		this.setupPanel.initFileChoosers();
 	}
 
+	/** Used for initialization. **/
 	private void init(String title, Dimension size, Dimension minSize) {
 		// use WebLAF
 		GUI.installWebLAF();
@@ -69,6 +83,7 @@ public class MainFrame extends JFrame {
 		mainPanel.add(tabPane, BorderLayout.CENTER);
 	}
 
+	/** Starts a search for the image at the given path in the given dir. **/
 	public void search(String path, String dir) {
 		if (tabPane.getTabCount() < Config.GUI_TABS_MAX) {
 			SearchPanel searchPanel = new SearchPanel(this,
@@ -88,10 +103,14 @@ public class MainFrame extends JFrame {
 			Log.error("maximum number of tabs reached");
 	}
 
+	/** Can be used to set the progress. **/
 	public void setProgress(double value) {
+		// NOTHING TO DO
 	}
 
+	/** Can be used to update the progress. **/
 	public void updateProgress(String msg, double progress) {
+		// NOTHING TO DO
 	}
 
 	/** Closes the given tab. **/
