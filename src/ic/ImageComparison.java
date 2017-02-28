@@ -74,7 +74,14 @@ public class ImageComparison {
 		//
 		// BufferedImage blub = Processing.getImageFromHash(new PHash(hash));
 		// IO.writeImage(blub, "data/ok.png");
-
+		
+		BufferedImage img = IO.readImage("data/Alyson_Hannigan_200512.jpg");
+		
+		PHash p = PHash.computeHash(img);
+//		PHash pold = PHash.computeHash(img);
+//		System.out.println("old: " + pold.getHash());
+		System.out.println(p.getHash());
+		IO.writeImage(Processing.getImageFromHash(p), "data/ok.png");
 	}
 
 	public static void guiTest() {
@@ -84,8 +91,9 @@ public class ImageComparison {
 	public static void searchDuplicates(BufferedImage img, String dir,
 			boolean recursive) throws IOException {
 		DHash dHash = DHash.computeHash(img);
-		PHash pHash = PHash.computeHash(img);
-		searchDuplicates(dHash, pHash, dir, recursive);
+//		PHash pHash = PHash.computeHash(img);
+		PHash pHash32 = PHash.computeHash(img);
+		searchDuplicates(dHash, pHash32, dir, recursive);
 	}
 
 	public static void searchDuplicates(DHash dHash, PHash pHash, String dir,
