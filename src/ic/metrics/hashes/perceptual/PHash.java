@@ -1,4 +1,4 @@
-package ic.metrics.name;
+package ic.metrics.hashes.perceptual;
 
 import ic.metrics.hashes.ImageHash;
 import ic.util.DCT;

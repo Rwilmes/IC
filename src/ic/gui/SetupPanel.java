@@ -1,8 +1,8 @@
 package ic.gui;
 
 import ic.image.Image;
-import ic.metrics.name.DHash;
-import ic.metrics.name.PHash;
+import ic.metrics.hashes.perceptual.DHash;
+import ic.metrics.hashes.perceptual.PHash;
 import ic.util.Config;
 import ic.util.IO;
 import ic.util.Processing;

@@ -2,8 +2,8 @@ package ic;
 
 import ic.gui.MainFrame;
 import ic.image.Image;
-import ic.metrics.name.DHash;
-import ic.metrics.name.PHash;
+import ic.metrics.hashes.perceptual.DHash;
+import ic.metrics.hashes.perceptual.PHash;
 import ic.util.IO;
 import ic.util.Processing;
 import ic.util.log.Log;
