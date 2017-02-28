@@ -47,12 +47,12 @@ import java.awt.image.DataBufferByte;
  * @author Rwilmes
  * 
  */
-public class PHash32 extends ImageHash {
+public class PHash extends ImageHash {
 
 	// static DCT transformation instance
 	private static final DCT transformation = new DCT(0);
 
-	public PHash32(String hash) {
+	public PHash(String hash) {
 		super(hash);
 	}
 
@@ -71,7 +71,7 @@ public class PHash32 extends ImageHash {
 	}
 
 	/** Computes the pHash of a given image. **/
-	public static PHash32 computeHash(BufferedImage img) {
+	public static PHash computeHash(BufferedImage img) {
 		Timer timer = new Timer(TimerType.TIMER_HASHING_PHASH);
 
 		// resize and grayscale the image
@@ -150,6 +150,6 @@ public class PHash32 extends ImageHash {
 		timer.stop();
 
 		// return pHash
-		return new PHash32(pHash);
+		return new PHash(pHash);
 	}
 }
