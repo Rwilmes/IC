@@ -55,6 +55,42 @@ public class Utils {
 		return counter;
 	}
 
+	/** Compute the bitwise hamming distance on two hex-strings. **/
+	public static int computeHammingDistanceBitwise(String s1, String s2) {
+		if (s1.length() != s2.length())
+			return -1;
+
+		int similarities = 0;
+
+		// iterate over hash string
+		int counter = 0;
+		for (int i = 0; i < s1.length(); i++) {
+			int v1 = Integer.parseInt(s1.substring(i, i + 1), 16);
+			int v2 = Integer.parseInt(s2.substring(i, i + 1), 16);
+
+			String b1 = Integer.toBinaryString(v1);
+			String b2 = Integer.toBinaryString(v2);
+
+			// add padding
+			while (b1.length() < 4)
+				b1 = "0" + b1;
+
+			while (b2.length() < 4)
+				b2 = "0" + b2;
+
+			for (int j = 0; j < b1.length(); j++) {
+				counter++;
+
+				if (b1.charAt(j) == b2.charAt(j))
+					similarities++;
+			}
+
+		}
+
+		// return number of unsimilar bits
+		return (counter - similarities);
+	}
+
 	/** Prints the given int matrix. **/
 	public static void printMatrix2D(int[][] matrix) {
 		for (int i = 0; i < matrix.length; i++) {
