@@ -112,4 +112,17 @@ public class IO {
 		return false;
 	}
 
+	/** Returns the filename from the given path string. **/
+	public static String getFilename(String path) {
+		String[] splits1 = path.split("\\\\");
+		String[] splits2 = path.split("/");
+
+		if (splits1.length > 1)
+			return splits1[splits1.length - 1];
+		if (splits2.length > 1)
+			return splits2[splits2.length - 1];
+
+		return path;
+	}
+
 }
