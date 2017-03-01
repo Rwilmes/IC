@@ -1,5 +1,7 @@
 package ic.util;
 
+import ic.metrics.hashes.ImageHash;
+
 import java.awt.Dimension;
 
 import javax.swing.ImageIcon;
@@ -11,6 +13,21 @@ import javax.swing.ImageIcon;
  * 
  */
 public class Config {
+
+	/*
+	 * HASH COMPUTATIONS CONFIG
+	 */
+	private static Class<? extends ImageHash>[] hashClassesArray;
+
+	@SuppressWarnings("unchecked")
+	public static void setHashesToCompute(
+			Class<? extends ImageHash>... hashClasses) {
+		hashClassesArray = hashClasses;
+	}
+
+	public static Class<? extends ImageHash>[] getHashClassesToCompute() {
+		return hashClassesArray;
+	}
 
 	/*
 	 * GUI CONFIG
