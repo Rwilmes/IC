@@ -65,6 +65,8 @@ public class Config {
 	public static final Dimension GUI_SEARCH_ENTRY_HASH_IMAGE_SIZE = new Dimension(
 			50, 50);
 
+	public static final int GUI_SEARCH_ENTRY_BUTTON_PANEL_WIDTH = 50;
+
 	public static final boolean GUI_SEARCH_RECURSIVE = true;
 
 	public static final int GUI_FILTER_DHASH_DISTANCE_THRESHOLD = 11;

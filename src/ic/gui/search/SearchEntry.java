@@ -70,7 +70,13 @@ public class SearchEntry extends JPanel {
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 
 		JButton copyButton = new JButton("Copy");
+		Dimension buttonSize = new Dimension(
+				Config.GUI_SEARCH_ENTRY_BUTTON_PANEL_WIDTH,
+				copyButton.getPreferredSize().height);
 		copyButton.setToolTipText("Copy the image path to clipboard");
+		copyButton.setPreferredSize(buttonSize);
+		copyButton.setMinimumSize(buttonSize);
+		copyButton.setMaximumSize(buttonSize);
 		copyButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -85,14 +91,20 @@ public class SearchEntry extends JPanel {
 
 		JButton trashButton = new JButton("Trash");
 		trashButton.setToolTipText("Removes this entry from the results.");
+		trashButton.setPreferredSize(buttonSize);
+		trashButton.setMinimumSize(buttonSize);
+		trashButton.setMaximumSize(buttonSize);
 		trashButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				thisEntry.trash();
 			}
 		});
-
 		buttonPanel.add(trashButton);
+
+		buttonPanel.setPreferredSize(new Dimension(
+				Config.GUI_SEARCH_ENTRY_BUTTON_PANEL_WIDTH, buttonPanel
+						.getPreferredSize().height));
 
 		this.add(GUI.genVerticalSeparator(thumbnail.getPreferredSize().height));
 		this.add(buttonPanel);
