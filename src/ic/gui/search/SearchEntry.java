@@ -21,7 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * A search entry represenets a single search result in the searchpanel.
+ * A search entry represents a single search result in the searchpanel.
  * 
  * @author Rwilmes
  * 

@@ -217,10 +217,9 @@ public class SearchPanel extends JPanel {
 	public void addEntry(String path) {
 		try {
 			Image img = new Image(path);
-			SearchEntry se = new SearchEntry(this, baseImg, img);
 
 			if (valid(baseImg, img))
-				centerPanel.add(se);
+				centerPanel.add(new SearchEntry(this, baseImg, img));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
