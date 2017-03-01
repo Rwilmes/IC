@@ -1,8 +1,6 @@
 package ic.gui;
 
 import ic.image.Image;
-import ic.metrics.hashes.perceptual.DHash;
-import ic.metrics.hashes.perceptual.PHash;
 import ic.util.Config;
 import ic.util.IO;
 import ic.util.Processing;
@@ -221,8 +219,7 @@ public class SetupPanel extends JPanel {
 		try {
 			if (IO.isFormatSupported(image)) {
 				BufferedImage img = IO.readImage(image.getAbsolutePath());
-				this.baseImage = new Image(img, image.getPath(),
-						DHash.computeHash(img), PHash.computeHash(img));
+				this.baseImage = new Image(img, image.getPath());
 				resizedImage = Processing.resize(img,
 						Config.GUI_PREVIEW_IMAGE_SIZE.width,
 						Config.GUI_PREVIEW_IMAGE_SIZE.height);
