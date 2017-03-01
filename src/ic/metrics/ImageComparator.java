@@ -1,4 +1,4 @@
-package ic;
+package ic.metrics;
 
 import ic.image.Image;
 import ic.metrics.hashes.ImageHash;
