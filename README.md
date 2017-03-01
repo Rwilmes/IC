@@ -1,3 +1,3 @@
 # IC
 
-I am just dabbling around with some image processing and comparison.
+A java framework for image comparison using perceptual hashes.
