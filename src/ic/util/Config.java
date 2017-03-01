@@ -24,11 +24,13 @@ public class Config {
 			DHash.class, PHash.class };
 
 	@SuppressWarnings("unchecked")
+	/** Sets new hashes to be computed. **/
 	public static void setHashesToCompute(
 			Class<? extends ImageHash>... hashClasses) {
 		hashClassesArray = hashClasses;
 	}
 
+	/** Returns the classes of the currently set hashes to be computed. **/
 	public static Class<? extends ImageHash>[] getHashClassesToCompute() {
 		return hashClassesArray;
 	}
