@@ -25,7 +25,7 @@ import java.awt.image.DataBufferByte;
  * d(h1, h2) <br>
  * 0 <=> identical image <br>
  * 1-10 <=> variant of the same image <br>
- * 10 <=> different image
+ * > 10 <=> different image
  * 
  * 
  * An implementation of the dHash algorithm.
