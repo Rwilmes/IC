@@ -8,7 +8,6 @@ import ic.util.GUI;
 import ic.util.IO;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -138,7 +137,7 @@ public class SearchPanel extends JPanel {
 		JPanel dummy2 = new JPanel();
 		dummy2.setPreferredSize(new Dimension(20, 10));
 		southPanel.add(dummy2);
-		
+
 		southPanel.add(new JLabel("Directory: "));
 		JLabel dirLabel = new JLabel(dir);
 		dirLabel.setPreferredSize(new Dimension(200, dirLabel
