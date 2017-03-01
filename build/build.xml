@@ -8,7 +8,7 @@
                 <attribute name="Class-Path" value="."/>
             </manifest>
 			<fileset dir="../bin"/>
-			<fileset dir="../." includes="config/**"/>
+			<fileset dir="../." includes="img/**"/>
 			<zipfileset excludes="META-INF/*.SF" src="../lib/weblaf-complete-1.29.jar"/>
         </jar>
     </target>

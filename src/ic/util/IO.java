@@ -1,15 +1,18 @@
 package ic.util;
 
-import ic.util.Timer.TimerType;
-import ic.util.log.Log;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+
+import ic.util.Timer.TimerType;
+import ic.util.log.Log;
 
 /**
  * Class containing utility I/O methods.
@@ -71,7 +74,10 @@ public class IO {
 
 	/** Reads an ImageIcon from the given path. **/
 	public static ImageIcon readImageIcon(String path) {
-		return new ImageIcon(path);
+		if(IO.isRunFromJar()) 
+			return new ImageIcon(IO.class.getResource("/" + path));
+		else
+			return new ImageIcon(path);
 	}
 
 	/** Collects all files found in the dir and below and adds the mto the list. **/
@@ -125,4 +131,17 @@ public class IO {
 		return path;
 	}
 
+	/** Checks if the program is run from jar. **/
+	public static boolean isRunFromJar() {
+		try {
+			Path p = Paths.get(Config.class.getProtectionDomain()
+					.getCodeSource().getLocation().toURI());
+			if (p.getFileName().toString().endsWith(".jar"))
+				return true;
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+
+		return false;
+	}
 }
