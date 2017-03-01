@@ -97,6 +97,9 @@ public class FilesystemCrawler implements Runnable {
 
 		broadcastProgress("done!", 1.0);
 		broadcastDone();
+		
+		// call garbage collection
+		System.gc();
 	}
 
 	/** Broadcasts the image to all registered components. **/

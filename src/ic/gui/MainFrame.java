@@ -117,6 +117,9 @@ public class MainFrame extends JFrame {
 	/** Closes the given tab. **/
 	public void closeTab(SearchPanel panel) {
 		tabPane.remove(panel);
+		
+		// call garbage collection
+		System.gc();
 	}
 
 	/** Sets that the search in a tab is done. **/

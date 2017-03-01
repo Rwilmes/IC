@@ -73,6 +73,9 @@ public class Image {
 		this.thumbnail = Processing.resize(img,
 				(int) Math.floor(Config.GUI_THUMBNAIL_SIZE.getHeight()),
 				(int) Math.floor(Config.GUI_THUMBNAIL_SIZE.getHeight()));
+		
+		// call garbage collection
+		System.gc();
 	}
 
 	/**
