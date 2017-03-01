@@ -24,7 +24,7 @@ public class Config {
 	@SuppressWarnings("unchecked")
 	private static Class<? extends ImageHash>[] hashClassesArray = new Class[] { DHash.class, PHash.class };
 
-	@SuppressWarnings("unchecked")
+	@SafeVarargs
 	/** Sets new hashes to be computed. **/
 	public static void setHashesToCompute(Class<? extends ImageHash>... hashClasses) {
 		hashClassesArray = hashClasses;
@@ -36,7 +36,17 @@ public class Config {
 	}
 
 	// default ImageComparator
-	public static ImageComparator IMAGE_COMPARISON_DEFAULT_COMPARATOR = new ImageComparator(new BasicDistancePolicy());
+	private static ImageComparator IMAGE_COMPARISON_DEFAULT_COMPARATOR = new ImageComparator(new BasicDistancePolicy());
+
+	/** Returns the default image comparator. **/
+	public static ImageComparator getImageComparator() {
+		return IMAGE_COMPARISON_DEFAULT_COMPARATOR;
+	}
+
+	/** Sets the default image comparator. **/
+	public static void setImageComparator(ImageComparator comparator) {
+		IMAGE_COMPARISON_DEFAULT_COMPARATOR = comparator;
+	}
 
 	// default value for the upper bound policy
 	public static final int IMAGE_COMPARISON_BASIC_DISTANCE_UPPER_BOUND = 12;

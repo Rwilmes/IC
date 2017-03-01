@@ -4,7 +4,7 @@
     <target name="create_run_jar">
         <jar destfile="IC_GUI.jar" filesetmanifest="mergewithoutmain">
             <manifest>
-                <attribute name="Main-Class" value="ic.gui.MainFrame"/>
+                <attribute name="Main-Class" value="ic.ImageComparison"/>
                 <attribute name="Class-Path" value="."/>
             </manifest>
 			<fileset dir="../bin"/>

@@ -21,13 +21,6 @@ import javax.swing.JTabbedPane;
  */
 public class MainFrame extends JFrame {
 
-	/** Main method used to open a MainFrame. **/
-	@SuppressWarnings("unused")
-	public static void main(String[] args) {
-		// init MainFrame
-		MainFrame frame = new MainFrame();
-	}
-
 	/**
 	 * 
 	 */
@@ -88,7 +81,7 @@ public class MainFrame extends JFrame {
 	public void search(String path, String dir) {
 		if (tabPane.getTabCount() < Config.GUI_TABS_MAX) {
 			SearchPanel searchPanel = new SearchPanel(this,
-					setupPanel.getBaseImage(), path, dir, Config.IMAGE_COMPARISON_DEFAULT_COMPARATOR);
+					setupPanel.getBaseImage(), path, dir, Config.getImageComparator());
 			FilesystemCrawler fc = searchPanel.getFilesystemCrawler();
 			fc.register(this);
 
