@@ -55,16 +55,23 @@ public class SearchEntry extends JPanel {
 		thumbnail.setBackground(Color.gray);
 		this.add(thumbnail);
 
+		JPanel pathPanel = new JPanel();
+
 		pathLabel = new JLabel("File: ");
 		pathLabel.setToolTipText(img.getPath());
-		this.add(pathLabel);
+		pathPanel.add(pathLabel);
 
 		pathField = new JLabel(img.getFilename());
 		pathField.setToolTipText(img.getPath());
 		pathField.setPreferredSize(new Dimension(
-				Config.GUI_SEARCH_ENTRY_PATH_WIDTH, pathField
+				Config.GUI_SEARCH_ENTRY_PATH_WIDTH
+						- pathLabel.getPreferredSize().width - 10, pathField
 						.getPreferredSize().height));
-		this.add(pathField);
+		pathPanel.add(pathField);
+		pathPanel.setPreferredSize(new Dimension(
+				Config.GUI_SEARCH_ENTRY_PATH_WIDTH, pathPanel
+						.getPreferredSize().height));
+		this.add(pathPanel);
 
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
