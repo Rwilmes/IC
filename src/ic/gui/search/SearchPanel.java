@@ -131,7 +131,10 @@ public class SearchPanel extends JPanel {
 		southPanel.add(new JLabel("Image: "));
 
 		JLabel imgLabel = new JLabel(IO.getFilename(imgPath));
+		// System.out.println(imgLabel.getPreferredSize());
 		imgLabel.setToolTipText(imgPath);
+		imgLabel.setPreferredSize(new Dimension(178, imgLabel
+				.getPreferredSize().height));
 		southPanel.add(imgLabel);
 
 		JPanel dummy2 = new JPanel();
@@ -140,14 +143,14 @@ public class SearchPanel extends JPanel {
 
 		southPanel.add(new JLabel("Directory: "));
 		JLabel dirLabel = new JLabel(dir);
-		dirLabel.setPreferredSize(new Dimension(200, dirLabel
+		dirLabel.setPreferredSize(new Dimension(300, dirLabel
 				.getPreferredSize().height));
 		dirLabel.setToolTipText(dir);
 		southPanel.add(dirLabel);
 
 		progressLabel = new JLabel("Idle");
 		progressLabel.setHorizontalAlignment(JLabel.RIGHT);
-		progressLabel.setPreferredSize(new Dimension(200, progressLabel
+		progressLabel.setPreferredSize(new Dimension(100, progressLabel
 				.getPreferredSize().height));
 		southPanel.add(progressLabel);
 
@@ -204,7 +207,6 @@ public class SearchPanel extends JPanel {
 	public void addEntry(Image img) {
 		if (valid(baseImg, img)) {
 			centerPanel.add(new SearchEntry(this, baseImg, img));
-
 			this.validate();
 		}
 	}
