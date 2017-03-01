@@ -1,6 +1,8 @@
 package ic.util;
 
 import ic.metrics.hashes.ImageHash;
+import ic.metrics.hashes.perceptual.DHash;
+import ic.metrics.hashes.perceptual.PHash;
 
 import java.awt.Dimension;
 
@@ -17,7 +19,9 @@ public class Config {
 	/*
 	 * HASH COMPUTATIONS CONFIG
 	 */
-	private static Class<? extends ImageHash>[] hashClassesArray;
+	@SuppressWarnings("unchecked")
+	private static Class<? extends ImageHash>[] hashClassesArray = new Class[] {
+			DHash.class, PHash.class };
 
 	@SuppressWarnings("unchecked")
 	public static void setHashesToCompute(
