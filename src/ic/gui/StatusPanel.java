@@ -9,6 +9,11 @@ import javax.swing.JProgressBar;
 
 public class StatusPanel extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 922616361758527614L;
+
 	public JLabel statusText;
 	private JProgressBar progressBar;
 

@@ -22,6 +22,7 @@ import javax.swing.JTabbedPane;
 public class MainFrame extends JFrame {
 
 	/** Main method used to open a MainFrame. **/
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		// init MainFrame
 		MainFrame frame = new MainFrame();

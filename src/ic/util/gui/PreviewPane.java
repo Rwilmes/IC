@@ -27,6 +27,11 @@ import javax.swing.JPanel;
  * 
  */
 public class PreviewPane extends JPanel implements PropertyChangeListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -31042263633701560L;
+
 	private JLabel label;
 	private int maxImgWidth;
 
