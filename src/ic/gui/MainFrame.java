@@ -88,7 +88,7 @@ public class MainFrame extends JFrame {
 	public void search(String path, String dir) {
 		if (tabPane.getTabCount() < Config.GUI_TABS_MAX) {
 			SearchPanel searchPanel = new SearchPanel(this,
-					setupPanel.getBaseImage(), path, dir);
+					setupPanel.getBaseImage(), path, dir, Config.IMAGE_COMPARISON_DEFAULT_COMPARATOR);
 			FilesystemCrawler fc = searchPanel.getFilesystemCrawler();
 			fc.register(this);
 

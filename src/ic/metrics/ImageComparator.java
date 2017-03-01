@@ -34,7 +34,8 @@ public class ImageComparator {
 	public boolean areImagesEqual(Image i1, Image i2) {
 		// iterate over all hashes and compare them
 		for (Class<? extends ImageHash> c : Config.getHashClassesToCompute()) {
-			policy.areImagesEqual(i1.getHash(c), i2.getHash(c));
+			if(policy.areImagesEqual(i1.getHash(c), i2.getHash(c)))
+				return true;
 		}
 		return false;
 	}

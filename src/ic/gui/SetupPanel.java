@@ -25,6 +25,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+
+/**
+ * The SetupPanel represents the Setup tab in the GUI.
+ * 
+ * @author Rwilmes
+ *
+ */
 public class SetupPanel extends JPanel {
 
 	/**

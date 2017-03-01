@@ -3,6 +3,7 @@ package ic.gui.search;
 import ic.gui.MainFrame;
 import ic.image.Image;
 import ic.io.FilesystemCrawler;
+import ic.metrics.ImageComparator;
 import ic.metrics.hashes.ImageHash;
 import ic.util.Config;
 import ic.util.GUI;
@@ -55,9 +56,11 @@ public class SearchPanel extends JPanel {
 	private JProgressBar progressBar;
 
 	private FilesystemCrawler fileCrawler;
+	
+	private ImageComparator comparator;
 
 	public SearchPanel(MainFrame parent, Image baseImg, String imgPath,
-			String dir) {
+			String dir, ImageComparator comparator) {
 		super();
 
 		thisPanel = this;
@@ -67,6 +70,8 @@ public class SearchPanel extends JPanel {
 		fileCrawler = new FilesystemCrawler(dir, Config.GUI_SEARCH_RECURSIVE);
 		fileCrawler.register(this);
 
+		this.comparator = comparator;
+		
 		// set layout
 		this.setLayout(new BorderLayout());
 
@@ -207,7 +212,8 @@ public class SearchPanel extends JPanel {
 
 	/** Adds an entry. **/
 	public void addEntry(Image img) {
-		if (valid(baseImg, img)) {
+		// check if image is equal enough to be added
+		if (comparator.areImagesEqual(baseImg, img)) {
 			centerPanel.add(new SearchEntry(this, baseImg, img));
 			this.validate();
 		}
@@ -218,24 +224,12 @@ public class SearchPanel extends JPanel {
 		try {
 			Image img = new Image(path);
 
-			if (valid(baseImg, img))
+			if (comparator.areImagesEqual(baseImg, img))
 				centerPanel.add(new SearchEntry(this, baseImg, img));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		this.validate();
-	}
-
-	/** Checks whether the image is close enough to the original. **/
-	public boolean valid(Image baseImg, Image img) {
-		// first check dHash
-		if (baseImg.getDHash().compareTo(img.getDHash()) <= Config.GUI_FILTER_DHASH_DISTANCE_THRESHOLD)
-			return true;
-
-		if (baseImg.getPHash().compareTo(img.getPHash()) <= Config.GUI_FILTER_PHASH_DISTANCE_THRESHOLD)
-			return true;
-
-		return false;
 	}
 
 	/** Trashes an entry. **/

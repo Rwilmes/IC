@@ -69,7 +69,4 @@ public class Config {
 
 	public static final boolean GUI_SEARCH_RECURSIVE = true;
 
-	public static final int GUI_FILTER_DHASH_DISTANCE_THRESHOLD = 11;
-	public static final int GUI_FILTER_PHASH_DISTANCE_THRESHOLD = 11;
-
 }
