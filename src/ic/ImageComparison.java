@@ -31,57 +31,22 @@ public class ImageComparison {
 	public static ArrayList<Image> similars = new ArrayList<Image>();
 
 	public static void main(String[] args) throws IOException {
-		// imagePath = "data/images/Irland/DSC_5649.jpg";
-		//
-		// BufferedImage img = IO.readImage(imagePath);
-		// BufferedImage img_small = Processing.resize(img, 0.3, 0.3);
-		// IO.writeImage(img_small, "data/similars/base.jpg");
-		//
-		// String dir = "data/images/";
-		// String dir2 = "C://files/bilder/";
-		// boolean recursive = true;
-		//
-		// // searchDuplicates(img, dir, recursive);
-		// // searchDuplicates(img, dir2, recursive);
-		//
-		//
-		// //
-		// // BufferedImage i1 = IO.readImage("data/images/1/P1080579.JPG");
-		// // i1 = Processing.resize(i1, 0.3, 0.3);
-		// // IO.writeImage(i1, "data/images/small/P1080579_small.JPG");
-		// //
-		// // BufferedImage i2 = IO.readImage("data/images/1/P1080578.JPG");
-		// // i2 = Processing.resize(i2, 0.3, 0.3);
-		// // IO.writeImage(i2, "data/images/small/P1080578_small.JPG");
-		//
-		// Log.sep();
-		// Log.log("probable hits for '" + imagePath + "' :");
-		// for (int i = 0; i < hits.size(); i++) {
-		// Log.log(i + "\t" + hits.get(i).getPath());
-		// }
-		//
-		// Log.sep();
-		// Log.log("similar images for '" + imagePath + "' :");
-		// for (int i = 0; i < similars.size(); i++) {
-		// Log.log(i + "\t" + similars.get(i).getPath());
-		// }
-		//
-		// Runtimes.printReport();
 
-		guiTest();
+//		guiTest();
+		
+		String alysonPath = "data/Alyson_Hannigan_200512.jpg";
 
-		// String hash = "2dbdefe2c2101687";
-		//
-		// BufferedImage blub = Processing.getImageFromHash(new PHash(hash));
-		// IO.writeImage(blub, "data/ok.png");
+		BufferedImage img = IO.readImage(alysonPath);
 		
-		BufferedImage img = IO.readImage("data/Alyson_Hannigan_200512.jpg");
+		PHash p = (PHash) PHash.computeHash(img);
+
 		
-		PHash p = PHash.computeHash(img);
-//		PHash pold = PHash.computeHash(img);
-//		System.out.println("old: " + pold.getHash());
-		System.out.println(p.getHash());
-		IO.writeImage(Processing.getImageFromHash(p), "data/ok.png");
+		Image i = new Image(alysonPath);
+		
+		
+		System.out.println(i.getPHash());
+		System.out.println(i.getPHash().getHash());
+
 	}
 
 	public static void guiTest() {
