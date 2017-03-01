@@ -45,13 +45,18 @@ public class HashInfoPanel extends JPanel {
 		imagePanel.setPreferredSize(Config.GUI_SEARCH_ENTRY_HASH_IMAGE_SIZE);
 		imagePanel.setBackground(Color.gray);
 
-		hashLabel.setPreferredSize(new Dimension(120, hashLabel
-				.getPreferredSize().height));
+		hashLabel.setPreferredSize(new Dimension(
+				Config.GUI_SEARCH_ENTRY_HASH_WIDTH
+						- Config.GUI_SEARCH_ENTRY_HASH_IMAGE_SIZE.width - 10,
+				hashLabel.getPreferredSize().height));
 
 		textPanel.add(distanceLabel);
 		textPanel.add(hashLabel);
 		this.add(textPanel);
 		this.add(imagePanel);
+
+		this.setPreferredSize(new Dimension(Config.GUI_SEARCH_ENTRY_HASH_WIDTH,
+				this.getPreferredSize().height));
 	}
 
 }

@@ -169,7 +169,8 @@ public class SearchPanel extends JPanel {
 		header.setLayout(new FlowLayout(FlowLayout.LEFT));
 
 		JLabel imageHeader = new JLabel("Image");
-		imageHeader.setPreferredSize(new Dimension(Config.GUI_THUMBNAIL_WIDTH,
+		imageHeader.setPreferredSize(new Dimension(
+				Config.GUI_THUMBNAIL_SIZE.width,
 				imageHeader.getPreferredSize().height));
 		header.add(imageHeader);
 
@@ -183,16 +184,18 @@ public class SearchPanel extends JPanel {
 
 		JLabel dHeader = new JLabel("dHash");
 		dHeader.setPreferredSize(new Dimension(
-				Config.GUI_SEARCH_ENTRY_HASH_WIDTH + Config.GUI_THUMBNAIL_WIDTH
-						- 10, dHeader.getPreferredSize().height));
+				Config.GUI_SEARCH_ENTRY_HASH_WIDTH
+						+ Config.GUI_THUMBNAIL_SIZE.width - 10, dHeader
+						.getPreferredSize().height));
 
 		header.add(dHeader);
 		header.add(GUI.genVerticalSeparator(imageHeader.getPreferredSize().height));
 
 		JLabel pHeader = new JLabel("pHash");
 		pHeader.setPreferredSize(new Dimension(
-				Config.GUI_SEARCH_ENTRY_HASH_WIDTH + Config.GUI_THUMBNAIL_WIDTH
-						- 10, pHeader.getPreferredSize().height));
+				Config.GUI_SEARCH_ENTRY_HASH_WIDTH
+						+ Config.GUI_THUMBNAIL_SIZE.width - 10, pHeader
+						.getPreferredSize().height));
 
 		header.add(pHeader);
 

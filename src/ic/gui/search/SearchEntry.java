@@ -2,6 +2,7 @@ package ic.gui.search;
 
 import ic.gui.ImagePanel;
 import ic.image.Image;
+import ic.metrics.hashes.ImageHash;
 import ic.util.Config;
 import ic.util.GUI;
 
@@ -32,8 +33,6 @@ public class SearchEntry extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Image img;
-
 	private SearchEntry thisEntry;
 
 	private SearchPanel thisParent;
@@ -47,7 +46,6 @@ public class SearchEntry extends JPanel {
 		this.thisEntry = this;
 		this.thisParent = thisParent;
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
-		this.img = img;
 
 		thumbnail = new ImagePanel(img.getThumbnail());
 		thumbnail.setSize(Config.GUI_THUMBNAIL_SIZE);
@@ -58,31 +56,15 @@ public class SearchEntry extends JPanel {
 		this.add(thumbnail);
 
 		pathLabel = new JLabel("File: ");
+		pathLabel.setToolTipText(img.getPath());
 		this.add(pathLabel);
 
-		pathField = new JLabel(img.getPath());
+		pathField = new JLabel(img.getFilename());
+		pathField.setToolTipText(img.getPath());
 		pathField.setPreferredSize(new Dimension(
 				Config.GUI_SEARCH_ENTRY_PATH_WIDTH, pathField
 						.getPreferredSize().height));
 		this.add(pathField);
-
-		HashInfoPanel dHashPanel = new HashInfoPanel(baseImg.getDHash(),
-				img.getDHash());
-		HashInfoPanel pHashPanel = new HashInfoPanel(baseImg.getPHash(),
-				img.getPHash());
-
-		pHashPanel.setPreferredSize(new Dimension(
-				Config.GUI_SEARCH_ENTRY_HASH_WIDTH + Config.GUI_THUMBNAIL_WIDTH
-						- 10, pHashPanel.getPreferredSize().height));
-		dHashPanel.setPreferredSize(new Dimension(
-				Config.GUI_SEARCH_ENTRY_HASH_WIDTH + Config.GUI_THUMBNAIL_WIDTH
-						- 10, dHashPanel.getPreferredSize().height));
-
-		this.add(GUI.genVerticalSeparator(thumbnail.getPreferredSize().height));
-		this.add(dHashPanel);
-		this.add(GUI.genVerticalSeparator(thumbnail.getPreferredSize().height));
-		this.add(pHashPanel);
-		this.add(GUI.genVerticalSeparator(thumbnail.getPreferredSize().height));
 
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
@@ -112,7 +94,14 @@ public class SearchEntry extends JPanel {
 
 		buttonPanel.add(trashButton);
 
+		this.add(GUI.genVerticalSeparator(thumbnail.getPreferredSize().height));
 		this.add(buttonPanel);
+
+		// create and add hash panels
+		for (Class<? extends ImageHash> c : Config.getHashClassesToCompute()) {
+			this.add(GUI.genVerticalSeparator(thumbnail.getPreferredSize().height));
+			this.add(new HashInfoPanel(baseImg.getHash(c), img.getHash(c)));
+		}
 	}
 
 	/** Trashes this entry. **/
