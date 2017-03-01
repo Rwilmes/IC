@@ -3,6 +3,7 @@ package ic.gui.search;
 import ic.gui.MainFrame;
 import ic.image.Image;
 import ic.io.FilesystemCrawler;
+import ic.metrics.hashes.ImageHash;
 import ic.util.Config;
 import ic.util.GUI;
 import ic.util.IO;
@@ -176,31 +177,29 @@ public class SearchPanel extends JPanel {
 
 		JLabel pathHeader = new JLabel("Path");
 		pathHeader.setPreferredSize(new Dimension(
-				32 + Config.GUI_SEARCH_ENTRY_PATH_WIDTH, pathHeader
+				Config.GUI_SEARCH_ENTRY_PATH_WIDTH, pathHeader
 						.getPreferredSize().height));
 		header.add(pathHeader);
 
 		header.add(GUI.genVerticalSeparator(imageHeader.getPreferredSize().height));
 
-		JLabel dHeader = new JLabel("dHash");
-		dHeader.setPreferredSize(new Dimension(
-				Config.GUI_SEARCH_ENTRY_HASH_WIDTH
-						+ Config.GUI_THUMBNAIL_SIZE.width - 10, dHeader
+		JLabel buttonHeader = new JLabel("Misc");
+		buttonHeader.setPreferredSize(new Dimension(
+				Config.GUI_SEARCH_ENTRY_BUTTON_PANEL_WIDTH, buttonHeader
 						.getPreferredSize().height));
+		header.add(buttonHeader);
 
-		header.add(dHeader);
-		header.add(GUI.genVerticalSeparator(imageHeader.getPreferredSize().height));
+		// create and add hash headers
+		for (Class<? extends ImageHash> c : Config.getHashClassesToCompute()) {
+			header.add(GUI.genVerticalSeparator(imageHeader.getPreferredSize().height));
+			JLabel hashHeader = new JLabel(c.getSimpleName());
+			hashHeader.setPreferredSize(new Dimension(
+					Config.GUI_SEARCH_ENTRY_HASH_WIDTH, hashHeader
+							.getPreferredSize().height));
+			header.add(hashHeader);
+		}
 
-		JLabel pHeader = new JLabel("pHash");
-		pHeader.setPreferredSize(new Dimension(
-				Config.GUI_SEARCH_ENTRY_HASH_WIDTH
-						+ Config.GUI_THUMBNAIL_SIZE.width - 10, pHeader
-						.getPreferredSize().height));
-
-		header.add(pHeader);
-
-		header.add(GUI.genVerticalSeparator(imageHeader.getPreferredSize().height));
-
+		// set border
 		header.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 
 		return header;
